@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vin.metron">
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,10 @@
         android:theme="@style/Theme.Metron">
         <activity
             android:name=".CameraActivity"
-            android:label="@string/title_activity_camera"
-            android:theme="@style/Theme.Metron.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
