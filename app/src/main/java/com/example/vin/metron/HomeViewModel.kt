@@ -3,13 +3,9 @@ package com.example.vin.metron
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.vin.metron.data.remote.network.ApiConfig
 import com.example.vin.metron.data.remote.network.ApiService
 import com.example.vin.metron.data.remote.network.ResponseIsFake
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,9 +14,9 @@ import retrofit2.Response
 class HomeViewModel : ViewModel() {
     private val apiService: ApiService = ApiConfig.provideApiService()
 
-    fun checkIsFake(image: MultipartBody.Part): LiveData<ResponseIsFake> {
+    fun checkIsFakeFromURI(image: MultipartBody.Part): LiveData<ResponseIsFake> {
         val result: MutableLiveData<ResponseIsFake> = MutableLiveData<ResponseIsFake>()
-        val client = apiService.checkIsFake(image)
+        val client = apiService.checkIsFakeFromURI(image)
         client.enqueue(object : Callback<ResponseIsFake> {
             override fun onResponse(
                 call: retrofit2.Call<ResponseIsFake>,
@@ -36,6 +32,7 @@ class HomeViewModel : ViewModel() {
         return result
     }
 
+    /* Deprecated
     fun checkIsFakeFromURL(): LiveData<ResponseIsFake> {
         val result: MutableLiveData<ResponseIsFake> = MutableLiveData<ResponseIsFake>()
         val hashMap = HashMap<String, String>()
@@ -58,4 +55,5 @@ class HomeViewModel : ViewModel() {
         })
         return result
     }
+     */
 }

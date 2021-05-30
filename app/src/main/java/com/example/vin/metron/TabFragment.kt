@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.HomeFragment.Companion.TAB_TITLES
 import com.example.vin.metron.databinding.FragmentTabBinding
 import com.google.mlkit.vision.common.InputImage
@@ -41,8 +42,23 @@ class TabFragment : Fragment(), View.OnClickListener {
             return CropImage.getActivityResult(intent)?.uri
         }
     }
-
     private var cropActivityResultLauncher: ActivityResultLauncher<Any?>? = null
+    private var usage:String = ""
+
+    companion object {
+        //PDAM atau PLN
+        const val TYPE = "TYPE"
+        const val RESULT = "RESULT"
+        const val USAGE = "USAGE"
+
+        @JvmStatic
+        fun newInstance(index: Int) =
+            TabFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("section", TAB_TITLES[index])
+                }
+            }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,19 +94,6 @@ class TabFragment : Fragment(), View.OnClickListener {
         binding.btnSubmit.setOnClickListener(this)
     }
 
-    companion object {
-        //PDAM atau PLN
-        const val TYPE = "TYPE"
-        const val RESULT = "RESULT"
-
-        @JvmStatic
-        fun newInstance(index: Int) =
-            TabFragment().apply {
-                arguments = Bundle().apply {
-                    putInt("section", TAB_TITLES[index])
-                }
-            }
-    }
 
     override fun onClick(view: View) {
         when (view.id) {
@@ -116,8 +119,8 @@ class TabFragment : Fragment(), View.OnClickListener {
             .addOnSuccessListener { visionText ->
                 Log.d("ocr raw", visionText.text)
                 try {
-                    val result = postProcessingOCR(visionText)
-                    binding.tvOcrResult.text = "$result Kw/H"
+                    usage = postProcessingOCR(visionText)
+                    binding.tvOcrResult.text = "$usage Kw/H"
                     binding.btnSubmit.visibility = View.VISIBLE
                 } catch (e: Error) {
                     Log.d("ocr fail", "test")
@@ -158,7 +161,11 @@ class TabFragment : Fragment(), View.OnClickListener {
             } else outputString += tempOutput[i]
         }
         Log.d("ocr size", outputString.trim().length.toString())
-        if (outputString.trim().length == 5) outputString += "5"
+        when(outputString.trim().length){
+            5 -> outputString += ".5"
+            6 -> outputString = outputString.substring(0,5) + "." + outputString.substring(5,outputString.length)
+            else -> throw Error("Data digit tidak terbaca lengkap")
+        }
         return outputString
     }
 
@@ -172,12 +179,14 @@ class TabFragment : Fragment(), View.OnClickListener {
             filename = file.name,
             body = requestBody
         )
-        homeViewModel.checkIsFakeFromURL().observe(viewLifecycleOwner) {
+        homeViewModel.checkIsFakeFromURI(body).observe(viewLifecycleOwner) {
             if (it.isFake != null) {
-                val intent = Intent(context, ResultActivity::class.java)
-                intent.putExtra(TYPE, resources.getString(requireArguments().getInt("section")))
-                intent.putExtra(RESULT,it.isFake)
-                startActivity(intent)
+                val usage = usage + "f"
+                val bundle = Bundle()
+                bundle.putString(TYPE, resources.getString(requireArguments().getInt("section")))
+                bundle.putBoolean(RESULT, it.isFake)
+                bundle.putFloat(USAGE,usage.toFloat())
+                findNavController().navigate(R.id.action_navigation_home_to_resultFragment, bundle)
             }
         }
     }

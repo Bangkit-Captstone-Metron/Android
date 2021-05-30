@@ -11,11 +11,8 @@
         android:name="com.example.vin.metron.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_home_to_navigation_history2"
-            app:destination="@id/navigation_history" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
+            android:id="@+id/action_navigation_home_to_resultFragment"
+            app:destination="@id/resultFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_history"
@@ -27,6 +24,11 @@
         android:label="@string/title_profile"
         android:name="com.example.vin.metron.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.vin.metron.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 
 
 </navigation>
