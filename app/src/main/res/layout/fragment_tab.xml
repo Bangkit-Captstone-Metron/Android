@@ -36,14 +36,14 @@
         <TextView
             android:id="@+id/tv_ocr_result"
             android:layout_width="wrap_content"
-            android:minWidth="200dp"
             android:layout_height="wrap_content"
+            android:minWidth="200dp"
             android:text="abc"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/cameraBtn"
-            app:layout_constraintTop_toBottomOf="@+id/photoIV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoIV" />
 
         <ImageButton
             android:id="@+id/cameraBtn"
@@ -58,6 +58,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/photoIV" />
 
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Submit"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cameraBtn">
+
+        </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
