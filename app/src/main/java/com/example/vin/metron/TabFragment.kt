@@ -22,7 +22,6 @@ import com.google.mlkit.vision.text.TextRecognizerOptions
 import com.theartofdev.edmodo.cropper.CropImage
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.MultipartBody.Part.Companion.createFormData
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
@@ -76,10 +75,14 @@ class TabFragment : Fragment(), View.OnClickListener {
         }
         binding.titleTV.text = resources.getString(resTitle)
         binding.cameraBtn.setOnClickListener(this)
-
+        binding.btnSubmit.setOnClickListener(this)
     }
 
     companion object {
+        //PDAM atau PLN
+        const val TYPE = "TYPE"
+        const val RESULT = "RESULT"
+
         @JvmStatic
         fun newInstance(index: Int) =
             TabFragment().apply {
@@ -95,12 +98,12 @@ class TabFragment : Fragment(), View.OnClickListener {
                 cropActivityResultLauncher?.launch(null)
             }
             R.id.btn_submit -> {
-                Toast.makeText(context,"start submit",Toast.LENGTH_SHORT).show()
-                Log.d("res","start submit")
+                Toast.makeText(context, "start submit", Toast.LENGTH_SHORT).show()
+                Log.d("res", "start submit")
                 try {
                     onSubmit()
-                } catch(e: Error){
-                    Toast.makeText(context,e.message.toString(),Toast.LENGTH_SHORT).show()
+                } catch (e: Error) {
+                    Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -161,7 +164,7 @@ class TabFragment : Fragment(), View.OnClickListener {
 
     fun onSubmit() {
         if (cropResultUri == null) throw Error("Gagal submit, uri tidak valid")
-        //Todo : Start loading, move
+        //Todo : Start loading, use another thread
         val file = File(cropResultUri!!.path)
         val requestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         val body: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -169,7 +172,13 @@ class TabFragment : Fragment(), View.OnClickListener {
             filename = file.name,
             body = requestBody
         )
-        val res = homeViewModel.checkIsFake(body).value?.isFake
-        Log.d("res",res.toString())
+        homeViewModel.checkIsFakeFromURL().observe(viewLifecycleOwner) {
+            if (it.isFake != null) {
+                val intent = Intent(context, ResultActivity::class.java)
+                intent.putExtra(TYPE, resources.getString(requireArguments().getInt("section")))
+                intent.putExtra(RESULT,it.isFake)
+                startActivity(intent)
+            }
+        }
     }
 }
