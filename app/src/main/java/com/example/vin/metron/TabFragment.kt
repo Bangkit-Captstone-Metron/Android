@@ -65,7 +65,7 @@ class TabFragment : Fragment(), View.OnClickListener {
             }
             //Todo: Start Loading
             if (cropResultUri != null) extractText(imageUri = cropResultUri!!)
-            else Toast.makeText(context, "Error!!!, Silahkan upload foto ulang", Toast.LENGTH_SHORT)
+            else Toast.makeText(context, "Uri tidak ditemukan, silahkan foto atau upload ulang", Toast.LENGTH_SHORT).show()
             //Todo: Stop Loading
         }
         binding.titleTV.text = resources.getString(resTitle)
@@ -96,13 +96,17 @@ class TabFragment : Fragment(), View.OnClickListener {
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         val result = recognizer.process(image)
             .addOnSuccessListener { visionText ->
-                Log.d("ocr raw",visionText.text)
-                val result = postProcessingOCR(visionText)
-                Log.d("ocr processed",result)
-                binding.tvOcrResult.text = "$result Kw/H"
+                Log.d("ocr raw", visionText.text)
+                try {
+                    val result = postProcessingOCR(visionText)
+                    binding.tvOcrResult.text = "$result Kw/H"
+                } catch (e: Error) {
+                    Log.d("ocr fail","test")
+                    Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
+                }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(context, e.message, Toast.LENGTH_SHORT)
+                Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -113,16 +117,17 @@ class TabFragment : Fragment(), View.OnClickListener {
 
     fun postProcessingOCR(ocrResult: Text): String {
         //Todo: research more about ocr postprocessing
+        if (ocrResult.textBlocks.isEmpty()) throw Error("Data digit tidak terdeteksi. Silahkan foto ulang")
         val tempOutput = ocrResult.textBlocks[0].lines[0].text.replace(
             "\\s+",
             ""
         ).toLowerCase().trim()
-        Log.d("ocr temp",tempOutput.toString())
-        var outputString: String =""
+        Log.d("ocr temp", tempOutput.toString())
+        var outputString: String = ""
 
-        for (i in tempOutput.indices){
-            if (!tempOutput[i].isDigit()){
-                when(tempOutput[i]){
+        for (i in tempOutput.indices) {
+            if (!tempOutput[i].isDigit()) {
+                when (tempOutput[i]) {
                     'o' -> outputString += "0"
                     'i' -> outputString += "1"
                     'e' -> outputString += "6"
@@ -130,7 +135,7 @@ class TabFragment : Fragment(), View.OnClickListener {
                 }
             } else outputString += tempOutput[i]
         }
-        Log.d("ocr size",outputString.trim().length.toString())
+        Log.d("ocr size", outputString.trim().length.toString())
         if (outputString.trim().length == 5) outputString += "5"
         return outputString
     }
