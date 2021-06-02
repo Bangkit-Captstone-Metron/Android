@@ -180,6 +180,7 @@ class TabFragment : Fragment(), View.OnClickListener {
             body = requestBody
         )
         homeViewModel.checkIsFakeFromURI(body).observe(viewLifecycleOwner) {
+            //Todo: Add confidence checking
             if (it.isFake != null) {
                 val usage = usage + "f"
                 val bundle = Bundle()
