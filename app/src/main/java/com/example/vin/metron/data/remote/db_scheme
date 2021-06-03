@@ -1,11 +1,11 @@
 Tabel User
-nik(primary_key), id_pln(foreign_key), id_pdam(foreign_key), nama, ttl, password
+email(primary_key), id_pln(foreign_key), id_pdam(foreign_key), nama, password
 
 Tabel History PLN
-id_pln(primary_key), start_date(primary_key), end_date , penggunaan, pelunasan, blob_image
+id_pln(primary_key), start_date(primary_key), end_date , penggunaan
 
 Table History_PDAM
-id_pdam(primary_key), start_date(primary_key), end_date , penggunaan, pelunasan, blob_image
+id_pdam(primary_key), start_date(primary_key), end_date , penggunaan
 
 **Note: start_date diasumsikan selalu merupakan end_date sebelumnya yang di + 1 second
 

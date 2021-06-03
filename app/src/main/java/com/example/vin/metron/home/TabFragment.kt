@@ -1,4 +1,4 @@
-package com.example.vin.metron
+package com.example.vin.metron.home
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,8 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.vin.metron.HomeFragment.Companion.TAB_TITLES
+import com.example.vin.metron.R
+import com.example.vin.metron.home.HomeFragment.Companion.TAB_TITLES
 import com.example.vin.metron.databinding.FragmentTabBinding
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
@@ -49,7 +50,7 @@ class TabFragment : Fragment(), View.OnClickListener {
         //PDAM atau PLN
         const val TYPE = "TYPE"
         const val RESULT = "RESULT"
-        const val USAGE = "USAGE"
+        const val NUMBER_READ = "NUMBER_READ"
 
         @JvmStatic
         fun newInstance(index: Int) =
@@ -112,7 +113,7 @@ class TabFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun extractText(imageUri: Uri) {
+    private fun extractText(imageUri: Uri) {
         val image = InputImage.fromFilePath(context, imageUri)
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         val result = recognizer.process(image)
@@ -132,7 +133,7 @@ class TabFragment : Fragment(), View.OnClickListener {
             }
     }
 
-    fun resetUI() {
+    private fun resetUI() {
         with(binding) {
             tvOcrResult.text = ""
             photoIV.setImageResource(R.drawable.ic_baseline_image_24)
@@ -140,7 +141,7 @@ class TabFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun postProcessingOCR(ocrResult: Text): String {
+    private fun postProcessingOCR(ocrResult: Text): String {
         //Todo: research more about ocr postprocessing
         if (ocrResult.textBlocks.isEmpty()) throw Error("Data digit tidak terdeteksi. Silahkan foto ulang")
         val tempOutput = ocrResult.textBlocks[0].lines[0].text.replace(
@@ -169,7 +170,7 @@ class TabFragment : Fragment(), View.OnClickListener {
         return outputString
     }
 
-    fun onSubmit() {
+    private fun onSubmit() {
         if (cropResultUri == null) throw Error("Gagal submit, uri tidak valid")
         //Todo : Start loading, use another thread
         val file = File(cropResultUri!!.path)
@@ -180,13 +181,13 @@ class TabFragment : Fragment(), View.OnClickListener {
             body = requestBody
         )
         homeViewModel.checkIsFakeFromURI(body).observe(viewLifecycleOwner) {
-            //Todo: Add confidence checking
-            if (it.isFake != null) {
+            Log.d("metron1", "${it.isFake} and ${it.confidence}")
+            if (it.isFake != null && it.confidence>75.00) {
                 val usage = usage + "f"
                 val bundle = Bundle()
                 bundle.putString(TYPE, resources.getString(requireArguments().getInt("section")))
                 bundle.putBoolean(RESULT, it.isFake)
-                bundle.putFloat(USAGE,usage.toFloat())
+                bundle.putFloat(NUMBER_READ,usage.toFloat())
                 findNavController().navigate(R.id.action_navigation_home_to_resultFragment, bundle)
             }
         }

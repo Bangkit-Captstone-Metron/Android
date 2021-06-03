@@ -8,7 +8,7 @@ interface ApiService {
     @Multipart
     @POST("file_fake_checker")
     fun checkIsFakeFromURI(
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part,
     ): Call<ResponseIsFake>
 
     @POST("fake_checker")

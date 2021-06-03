@@ -9,12 +9,8 @@ import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.example.vin.metron.authentication.LoginActivity
 import com.example.vin.metron.databinding.ActivityMainBinding
-import com.example.vin.metron.databinding.ContentTabBinding
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

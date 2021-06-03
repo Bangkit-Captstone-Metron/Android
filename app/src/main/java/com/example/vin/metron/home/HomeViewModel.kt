@@ -1,5 +1,6 @@
-package com.example.vin.metron
+package com.example.vin.metron.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ class HomeViewModel : ViewModel() {
             }
 
             override fun onFailure(call: retrofit2.Call<ResponseIsFake>, t: Throwable) {
+                Log.d("res", "onFailure with error: $t")
                 throw Error(t.message.toString())
             }
         })
