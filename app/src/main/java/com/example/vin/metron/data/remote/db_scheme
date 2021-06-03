@@ -28,6 +28,6 @@ Flow:
 2. Sign up/Sign in (email,password)
 3. Get id_pln and id_pdam using current email from Firestore
 4. Store id_pln, id_pdam,email,password di SharedPreference
-5. CRU data history using id_pln,id_pdam from SharedPreferenceS
+5. CRU data history using id_pln,id_pdam from SharedPreference
 
 

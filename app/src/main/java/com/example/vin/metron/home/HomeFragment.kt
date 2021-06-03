@@ -1,4 +1,4 @@
-package com.example.vin.metron
+package com.example.vin.metron.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.vin.metron.R
 import com.example.vin.metron.databinding.ContentTabBinding
 import com.example.vin.metron.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -39,7 +40,8 @@ class HomeFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTabs()
-        homeViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            HomeViewModel::class.java)
     }
 
     private fun setTabs() {

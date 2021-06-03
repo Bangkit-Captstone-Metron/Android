@@ -46,18 +46,12 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val reqCode = if (isPLN) NOTIF_REQ_CODE_PLN else NOTIF_REQ_CODE_PDAM
         val pendingIntent = PendingIntent.getBroadcast(context, reqCode, intent, 0)
-        alarmManager.setRepeating(
+        alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             schedule.timeInMillis,
-            60*1000, // testing purpose: 1 minute
+            AlarmManager.INTERVAL_DAY * ALARM_RECURRING_PERIOD,
             pendingIntent
         )
-//        alarmManager.setInexactRepeating(
-//            AlarmManager.RTC_WAKEUP,
-//            schedule.timeInMillis,
-//            AlarmManager.INTERVAL_DAY * ALARM_RECURRING_PERIOD,
-//            pendingIntent
-//        )
     }
 
     fun showReminderNotification(context: Context, notifId: Int, message: String) {

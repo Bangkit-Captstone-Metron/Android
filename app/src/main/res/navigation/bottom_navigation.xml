@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:label="@string/title_home"
-        android:name="com.example.vin.metron.HomeFragment"
+        android:name="com.example.vin.metron.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_resultFragment"
@@ -17,17 +17,17 @@
     <fragment
         android:id="@+id/navigation_history"
         android:label="@string/title_history"
-        android:name="com.example.vin.metron.HistoryFragment"
+        android:name="com.example.vin.metron.history.HistoryFragment"
         tools:layout="@layout/fragment_history"/>
     <fragment
         android:id="@+id/navigation_profile"
         android:label="@string/title_profile"
-        android:name="com.example.vin.metron.ProfileFragment"
+        android:name="com.example.vin.metron.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.vin.metron.ResultFragment"
-        android:label="fragment_result"
+        android:label="Result"
         tools:layout="@layout/fragment_result" >
         <action
             android:id="@+id/action_resultFragment_to_navigation_home"
