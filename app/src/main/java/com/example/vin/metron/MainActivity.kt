@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.vin.metron.authentication.LoginActivity
 import com.example.vin.metron.databinding.ActivityMainBinding
 import com.google.firebase.auth.ktx.auth

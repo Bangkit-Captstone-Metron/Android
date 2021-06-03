@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:label="@string/title_profile"
-        android:name="com.example.vin.metron.ProfileFragment"
+        android:name="com.example.vin.metron.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/resultFragment"
