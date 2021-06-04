@@ -133,7 +133,7 @@ class ResultFragment : Fragment() {
                     }
             }
             false -> {
-                db.collection("records_pDAM")
+                db.collection("records_pdam")
                     .whereEqualTo("no_pdam", noPln)
                     .orderBy("time_end", Query.Direction.DESCENDING).get()
                     .addOnSuccessListener { documents ->
