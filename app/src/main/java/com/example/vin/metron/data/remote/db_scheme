@@ -1,11 +1,33 @@
-Tabel User
-email(primary_key), id_pln(foreign_key), id_pdam(foreign_key), nama, password
+User = 1 Rumah Tangga
 
-Tabel History PLN
-id_pln(primary_key), start_date(primary_key), end_date , penggunaan
+User:
+ -email_rumah_tangga
+ -id_pln
+ -id_pdam
+ -nama_kepala_keluarga
+ -password_rumah_tangga
 
-Table History_PDAM
-id_pdam(primary_key), start_date(primary_key), end_date , penggunaan
+History:
+ -id_pln
+ -start_date
+ -end_date
+ -penggunaan
 
-**Note: start_date diasumsikan selalu merupakan end_date sebelumnya yang di + 1 second
+Water:
+ -id_pdam
+ -start_date
+ -end_date
+ -penggunaan
+
+SharedPreference:
+id_pln
+id_pdam
+
+Flow:
+1. Install
+2. Sign up/Sign in (email,password)
+3. Get id_pln and id_pdam using current email from Firestore
+4. Store id_pln, id_pdam,email,password di SharedPreference
+5. CRU data history using id_pln,id_pdam from SharedPreference
+
 
