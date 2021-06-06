@@ -39,11 +39,12 @@ class ResultFragment : Fragment() {
         backToHomeButtonListener()
     }
 
-    fun backToHomeButtonListener(){
+    fun backToHomeButtonListener() {
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_resultFragment_to_navigation_home)
         }
     }
+
     fun setUIContent() {
         binding.ivResultFail.visibility = View.GONE
         binding.ivResultSucess.visibility = View.GONE
@@ -54,7 +55,7 @@ class ResultFragment : Fragment() {
         val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(R.string.pln))
         val type = if (isPLN) "listrik" else "air"
         val isFake = arguments?.getBoolean(TabFragment.RESULT, true) ?: false
-        Log.d("result page",isFake.toString())
+        Log.d("result page", isFake.toString())
         val numberRead = arguments?.getFloat(TabFragment.NUMBER_READ)
         try {
             if (isFake) {
@@ -72,7 +73,7 @@ class ResultFragment : Fragment() {
             binding.btnBack.visibility = View.VISIBLE
 
 
-            Log.d("result page",e.message.toString())
+            Log.d("result page", e.message.toString())
             Toast.makeText(
                 context,
                 "ERROR: ${e.message}",
@@ -87,18 +88,24 @@ class ResultFragment : Fragment() {
             context = requireContext(),
             isPLN = isPLN
         )
-        Log.d("result page",schedule.toString())
-        alarmReceiver.setAlarm(context = requireContext(), schedule=schedule, isPLN = isPLN)
+        Log.d("result page", schedule.toString())
+        alarmReceiver.setAlarm(context = requireContext(), schedule = schedule, isPLN = isPLN)
     }
 
-    private fun saveToDatabase(numberRead: Float?, isPLN: Boolean){
+    private fun saveToDatabase(numberRead: Float?, isPLN: Boolean) {
         Log.d("metron1", userPreferences.toString())
         val user = userPreferences.getUser()
         val db = FirebaseFirestore.getInstance()
 
-        when(isPLN){
+        when (isPLN) {
             true -> {
-                val record = PLNRecord(user.no_pln, null, null, numberRead, getUsage(numberRead, isPLN, user.no_pln))
+                val record = PLNRecord(
+                    user?.no_pln,
+                    null,
+                    null,
+                    numberRead,
+                    getUsage(numberRead, isPLN, user?.no_pln)
+                )
                 db.collection("records_pln")
                     .add(record)
                     .addOnSuccessListener { documentReference ->
@@ -151,13 +158,13 @@ class ResultFragment : Fragment() {
             }
         }
         return if (numberRead != null) {
-            numberRead-prevNumberRead
-        } else{
+            numberRead - prevNumberRead
+        } else {
             null
         }
     }
 
-    private fun showToast(message: String){
+    private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

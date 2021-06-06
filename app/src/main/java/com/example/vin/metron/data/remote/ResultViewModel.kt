@@ -20,6 +20,7 @@ class ResultViewModel : ViewModel() {
     fun savePDAMData() {}
 
     fun getUpdatedOrNewlyCreatedAlarmSchedule(context: Context, isPLN: Boolean): Calendar {
+        //Todo: contain logic bug, fix this
         val valKey = if (isPLN) PREF_LAST_PLN_SUBMISSION else PREF_LAST_PDAM_SUBMISSION
         val sharePref = context.getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE)
         val lastSubmissionPref = sharePref.getString(valKey,null)

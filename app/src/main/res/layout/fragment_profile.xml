@@ -129,8 +129,8 @@
                 android:id="@+id/sm_notif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:checked="true" />
+                android:clickable="false"
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
 
         <View
@@ -151,7 +151,7 @@
                 android:padding="10dp"
                 android:text="Akun" />
 
-<!--            Todo: Apply Material style to button-->
+            <!--            Todo: Apply Material style to button-->
             <Button
                 android:id="@+id/btn_logout"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"

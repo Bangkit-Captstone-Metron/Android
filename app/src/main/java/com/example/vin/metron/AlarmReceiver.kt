@@ -55,7 +55,6 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     fun showReminderNotification(context: Context, notifId: Int, message: String) {
-        //Todo: Open application when notif onCLick
         val type = if (notifId == NOTIF_REQ_CODE_PLN) "listrik" else "air"
         val channelId = "Reminder Penggunaan"
         val channelName = "Reminder Penggunaan"

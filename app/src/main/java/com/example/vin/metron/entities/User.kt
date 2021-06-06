@@ -6,5 +6,6 @@ data class User(
     var no_pln: String?,
     var no_pdam: String?,
     var phone: String?,
-    var password: String?
+    var password: String?,
+    var isReminderNotifEnable:Boolean = true,
 )

@@ -49,6 +49,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //Material Design
+    def material_version = "1.4.0-beta01"
+    implementation "com.google.android.material:material:${material_version}"
+
     //Layouting
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
