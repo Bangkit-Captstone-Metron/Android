@@ -26,13 +26,18 @@
         tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.example.vin.metron.ResultFragment"
+        android:name="com.example.vin.metron.result.ResultFragment"
         android:label="Result"
         tools:layout="@layout/fragment_result" >
         <action
             android:id="@+id/action_resultFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_info"
+        android:name="com.example.vin.metron.info.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
 
 
 </navigation>

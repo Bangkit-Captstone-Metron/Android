@@ -1,4 +1,4 @@
-package com.example.vin.metron
+package com.example.vin.metron.result
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.vin.metron.data.remote.ResultViewModel
+import com.example.vin.metron.AlarmReceiver
+import com.example.vin.metron.R
+import com.example.vin.metron.UserPreferences
 import com.example.vin.metron.databinding.FragmentResultBinding
 import com.example.vin.metron.entities.PLNRecord
 import com.example.vin.metron.home.TabFragment
@@ -18,7 +20,8 @@ import com.google.firebase.firestore.Query
 
 class ResultFragment : Fragment() {
     private lateinit var binding: FragmentResultBinding
-    private val alarmReceiver: AlarmReceiver = AlarmReceiver()
+    private val alarmReceiver: AlarmReceiver =
+        AlarmReceiver()
     private val resultViewModel: ResultViewModel by viewModels()
     private lateinit var userPreferences: UserPreferences
 
@@ -33,7 +36,8 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userPreferences = UserPreferences(requireContext())
+        userPreferences =
+            UserPreferences(requireContext())
 
         setUIContent()
         backToHomeButtonListener()
@@ -52,7 +56,9 @@ class ResultFragment : Fragment() {
         binding.tvDesc.text = ""
         binding.tvUsage.text = ""
 
-        val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(R.string.pln))
+        val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(
+            R.string.pln
+        ))
         val type = if (isPLN) "listrik" else "air"
         val isFake = arguments?.getBoolean(TabFragment.RESULT, true) ?: false
         Log.d("result page", isFake.toString())

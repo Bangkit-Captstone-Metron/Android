@@ -8,14 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.vin.metron.R
 import com.example.vin.metron.authentication.LoginActivity
-import com.example.vin.metron.data.remote.ResultViewModel
-import com.example.vin.metron.databinding.FragmentHomeBinding
 import com.example.vin.metron.databinding.FragmentProfileBinding
-import com.example.vin.metron.home.HomeViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

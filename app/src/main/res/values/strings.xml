@@ -1,5 +1,5 @@
 <resources>
-<!--    TODO: Remember all should be in Indonesia-->
+    <!--    TODO: Remember all should be in Indonesia-->
     <string name="app_name">Metron</string>
     <string name="pln">PLN</string>
     <string name="pdam">PDAM</string>
