@@ -32,6 +32,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.registerBtn -> {
+                binding.progressBar.visibility = View.VISIBLE
                 val email = binding.emailET.text.toString()
                 val name = binding.nameET.text.toString()
                 val noPln = binding.plnNoET.text.toString()
@@ -47,24 +48,27 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                              noPdam: String, phone: String, password: String){
         fAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
+                binding.progressBar.visibility = View.GONE
                 if (task.isSuccessful) {
-                    Log.d("metron1", "registered successful")
                     val db = FirebaseFirestore.getInstance()
                     val user = User(email, name, noPln, noPdam, phone, password)
                     db.collection("users")
                         .add(user)
                         .addOnSuccessListener { documentReference ->
+                            showToast("Register Successful")
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
-                            Log.d("metron1", "Register succeed")
                         }
                         .addOnFailureListener { e ->
-                            Log.d("metron1", "Fail to add user data")
+                            showToast("Register failed, please check your data again")
                         }
                 }else{
-                    Toast.makeText(this, "Register failed, please try again", Toast.LENGTH_SHORT).show()
-                    Log.d("metron1", "${task.exception}")
+                    showToast("Register failed, please try again")
                 }
             }
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

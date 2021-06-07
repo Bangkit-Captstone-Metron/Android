@@ -21,7 +21,7 @@ class HomeFragment : Fragment(){
             R.string.pdam
         )
 
-        private val TAB_ICONS = intArrayOf(
+        val TAB_ICONS = intArrayOf(
             R.drawable.pln_logo,
             R.drawable.pdam_logo
         )

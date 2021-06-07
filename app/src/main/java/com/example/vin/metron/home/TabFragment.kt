@@ -121,8 +121,10 @@ class TabFragment : Fragment(), View.OnClickListener {
                 Log.d("ocr raw", visionText.text)
                 try {
                     usage = postProcessingOCR(visionText)
-                    binding.tvOcrResult.text = "$usage Kw/H"
-                    binding.btnSubmit.visibility = View.VISIBLE
+                    binding.apply {
+                        tvOcrResult.text = "$usage Kw/H"
+                        btnSubmit.visibility = View.VISIBLE
+                    }
                 } catch (e: Error) {
                     Log.d("ocr fail", "test")
                     Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()

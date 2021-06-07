@@ -8,19 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.data.remote.ResultViewModel
 import com.example.vin.metron.databinding.FragmentResultBinding
+import com.example.vin.metron.entities.PDAMRecord
 import com.example.vin.metron.entities.PLNRecord
 import com.example.vin.metron.home.TabFragment
+import com.example.vin.metron.profile.AlarmReceiver
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 
 class ResultFragment : Fragment() {
     private lateinit var binding: FragmentResultBinding
     private val alarmReceiver: AlarmReceiver = AlarmReceiver()
     private val resultViewModel: ResultViewModel by viewModels()
     private lateinit var userPreferences: UserPreferences
+    private lateinit var plnViewModel: PlnViewModel
+    private lateinit var pdamViewModel: PdamViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,51 +39,52 @@ class ResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userPreferences = UserPreferences(requireContext())
+        plnViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[PlnViewModel::class.java]
+        pdamViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[PdamViewModel::class.java]
 
         setUIContent()
         backToHomeButtonListener()
     }
 
-    fun backToHomeButtonListener() {
+    private fun backToHomeButtonListener() {
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_resultFragment_to_navigation_home)
         }
     }
 
-    fun setUIContent() {
-        binding.ivResultFail.visibility = View.GONE
-        binding.ivResultSucess.visibility = View.GONE
-        binding.btnBack.visibility = View.GONE
-        binding.tvDesc.text = ""
-        binding.tvUsage.text = ""
+    private fun setUIContent() {
+        binding.apply {
+            ivResultFail.visibility = View.GONE
+            ivResultSucess.visibility = View.GONE
+            btnBack.visibility = View.GONE
+            tvDesc.text = ""
+            tvUsage.text = ""
+        }
 
         val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(R.string.pln))
         val type = if (isPLN) "listrik" else "air"
         val isFake = arguments?.getBoolean(TabFragment.RESULT, true) ?: false
-        Log.d("result page", isFake.toString())
         val numberRead = arguments?.getFloat(TabFragment.NUMBER_READ)
         try {
             if (isFake) {
                 saveToDatabase(numberRead, isPLN)
                 //Todo: Save to Firestore DB
                 scheduleAlarm(isPLN = isPLN)
-                binding.ivResultSucess.visibility = View.VISIBLE
-                binding.btnBack.visibility = View.VISIBLE
-                binding.tvDesc.text = "Data penggunaan $type berhasil tersimpan"
-                binding.tvUsage.text = "$numberRead kw/h"
+                binding.apply {
+                    ivResultSucess.visibility = View.VISIBLE
+                    btnBack.visibility = View.VISIBLE
+                    tvDesc.text = "Data penggunaan $type berhasil tersimpan"
+                    tvUsage.text = "$numberRead kw/h"
+                }
             } else throw Exception("Gagal, Gunakan foto yang asli meteran anda yang jelas")
         } catch (e: Exception) {
-            binding.ivResultFail.visibility = View.VISIBLE
-            binding.tvDesc.text = "Penyimpanan gagal"
-            binding.btnBack.visibility = View.VISIBLE
+            binding.apply {
+                ivResultFail.visibility = View.VISIBLE
+                tvDesc.text = "Penyimpanan gagal"
+                btnBack.visibility = View.VISIBLE
+            }
 
-
-            Log.d("result page", e.message.toString())
-            Toast.makeText(
-                context,
-                "ERROR: ${e.message}",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast("ERROR: ${e.message}")
         }
 
     }
@@ -93,74 +99,48 @@ class ResultFragment : Fragment() {
     }
 
     private fun saveToDatabase(numberRead: Float?, isPLN: Boolean) {
-        Log.d("metron1", userPreferences.toString())
         val user = userPreferences.getUser()
         val db = FirebaseFirestore.getInstance()
-
         when (isPLN) {
             true -> {
-                val record = PLNRecord(
-                    user?.no_pln,
-                    null,
-                    null,
-                    numberRead,
-                    getUsage(numberRead, isPLN, user?.no_pln)
-                )
-                db.collection("records_pln")
-                    .add(record)
-                    .addOnSuccessListener { documentReference ->
-                        Log.d("metron1", "Record added")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.d("metron1", "Fail to add record with error $e")
-                    }
-            }
-        }
-    }
-
-    private fun getUsage(numberRead: Float?, isPLN: Boolean, noPln: String?): Float? {
-        var prevNumberRead: Float = 0.0F
-        val db = FirebaseFirestore.getInstance()
-        when (isPLN) {
-            true -> {
-                db.collection("records_pln")
-                    .whereEqualTo("no_pln", noPln)
-                    .orderBy("time_end", Query.Direction.DESCENDING).get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            prevNumberRead = if (document.exists()) {
-                                Log.d("metron1", document.get("number_read").toString())
-                                document.get("number_read").toString().toFloat()
-                            } else {
-                                Log.d("metron1", "no previous record")
-                                0.0F
-                            }
-                            break
+                plnViewModel.getPreviousNumberRead(user?.no_pln).observe(viewLifecycleOwner,{ prevNumberRead ->
+                    val record = PLNRecord(
+                        user?.no_pln,
+                        Timestamp.now(),
+                        Timestamp.now(),
+                        numberRead,
+                        (numberRead!! - prevNumberRead!!)
+                    )
+                    db.collection("records_pln")
+                        .add(record)
+                        .addOnSuccessListener {
+                            Log.d("metron1", "Record added")
                         }
-                    }
+                        .addOnFailureListener { e ->
+                            Log.d("metron1", "Fail to add record with error $e")
+                        }
+                })
             }
+
             false -> {
-                db.collection("records_pdam")
-                    .whereEqualTo("no_pdam", noPln)
-                    .orderBy("time_end", Query.Direction.DESCENDING).get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            prevNumberRead = if (document.exists()) {
-                                Log.d("metron1", document.get("number_read").toString())
-                                document.get("number_read").toString().toFloat()
-                            } else {
-                                Log.d("metron1", "no previous record")
-                                0.0F
-                            }
-                            break
+                pdamViewModel.getPreviousNumberRead(user?.no_pdam).observe(viewLifecycleOwner,{ prevNumberRead ->
+                    val record = PDAMRecord(
+                        user?.no_pdam,
+                        Timestamp.now(),
+                        Timestamp.now(),
+                        numberRead,
+                        (numberRead!! - prevNumberRead!!)
+                    )
+                    db.collection("records_pdam")
+                        .add(record)
+                        .addOnSuccessListener {
+                            Log.d("metron1", "Record added")
                         }
-                    }
+                        .addOnFailureListener { e ->
+                            Log.d("metron1", "Fail to add record with error $e")
+                        }
+                })
             }
-        }
-        return if (numberRead != null) {
-            numberRead - prevNumberRead
-        } else {
-            null
         }
     }
 

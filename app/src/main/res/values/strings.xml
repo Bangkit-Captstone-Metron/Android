@@ -1,5 +1,5 @@
 <resources>
-<!--    TODO: Remember all should be in Indonesia-->
+    <!--    TODO: Remember all should be in Indonesia-->
     <string name="app_name">Metron</string>
     <string name="pln">PLN</string>
     <string name="pdam">PDAM</string>
@@ -8,7 +8,7 @@
     <string name="title_profile">Profile</string>
     <string name="sharedPrefKey">sharedPref</string>
 
-    <string name="profile_pln_id">ID PLN: %1$s!</string>
+    <string name="profile_pln_id">ID PLN: %1$s</string>
     <string name="profile_pdam_id">ID PDAM: %1$s</string>
 
     <!-- TODO: Remove or change this placeholder text -->

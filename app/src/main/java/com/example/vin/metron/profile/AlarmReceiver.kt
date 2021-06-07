@@ -1,6 +1,5 @@
-package com.example.vin.metron
+package com.example.vin.metron.profile
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -13,6 +12,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.example.vin.metron.*
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -20,12 +20,12 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("receiver","I am so sleepy")
         when(intent.action){
-            ACTION_REMIND_PLN->{
+            ACTION_REMIND_PLN ->{
                 val message = "Jangan lupa mengupload meteran listrik bulan ini di Metron!!"
                 showReminderNotification(context=context,notifId= NOTIF_REQ_CODE_PLN,message=message)
                 Log.d("result page receiver","pln")
             }
-            ACTION_REMIND_PDAM->{
+            ACTION_REMIND_PDAM ->{
                 val message = "Jangan lupa mengupload meteran air bulan ini di Metron!!"
                 showReminderNotification(context=context,notifId= NOTIF_REQ_CODE_PDAM,message=message)
                 Log.d("result page receiver","pdam")

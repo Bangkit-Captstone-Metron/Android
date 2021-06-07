@@ -6,13 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".history.HistoryFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/historyRV"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabsTL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/viewPagerVP"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp"
+        app:tabSelectedTextColor="@color/blue_1"
+        app:tabTextColor="@color/blue_2" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerVP"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabsTL"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

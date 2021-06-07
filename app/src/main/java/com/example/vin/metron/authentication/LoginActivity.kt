@@ -2,7 +2,6 @@ package com.example.vin.metron.authentication
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,18 +26,17 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener{
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.registrationBtn.setOnClickListener(this@LoginActivity)
-
-        binding.loginBtn.setOnClickListener(this)
-
         fAuth = Firebase.auth
         mainIntent = Intent(this, MainActivity::class.java)
         userPreference = UserPreferences(this)
 
+        binding.apply {
+            registrationBtn.setOnClickListener(this@LoginActivity)
+            loginBtn.setOnClickListener(this@LoginActivity)
+        }
+
         val currentUser = fAuth.currentUser
-        Log.d("metron1", "current user in login act: $currentUser")
         if(currentUser != null){
-            Log.d("metron1", "User $currentUser has logged in")
             startActivity(mainIntent)
         }
     }
@@ -46,6 +44,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener{
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.loginBtn -> {
+                binding.progressBar.visibility = View.VISIBLE
                 val email = binding.emailET.text.toString()
                 val password = binding.passwordET.text.toString()
                 loginUser(email, password)
@@ -60,22 +59,26 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener{
     private fun loginUser(email: String, password: String){
         fAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
+                binding.progressBar.visibility = View.GONE
                 if (task.isSuccessful) {
                     val db = FirebaseFirestore.getInstance()
                     val result = db.collection("users")
                         .whereEqualTo("email", email)
                     result.get().addOnSuccessListener {documents ->
+                        showToast("Login successful")
                         for(document in documents){
                             userPreference.setUser(document)
                             break
                         }
                     }
-
                     startActivity(mainIntent)
                 }else{
-                    Toast.makeText(this, "Login failed, please try again", Toast.LENGTH_SHORT).show()
-                    Log.d("metron1", "${task.exception}")
+                    showToast("Login failed, please try again")
                 }
             }
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
