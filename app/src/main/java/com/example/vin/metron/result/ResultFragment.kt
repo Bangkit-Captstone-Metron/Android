@@ -1,4 +1,4 @@
-package com.example.vin.metron
+package com.example.vin.metron.result
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.vin.metron.data.remote.ResultViewModel
+import com.example.vin.metron.PdamViewModel
+import com.example.vin.metron.PlnViewModel
+import com.example.vin.metron.R
+import com.example.vin.metron.UserPreferences
 import com.example.vin.metron.databinding.FragmentResultBinding
 import com.example.vin.metron.entities.PDAMRecord
 import com.example.vin.metron.entities.PLNRecord
@@ -21,7 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ResultFragment : Fragment() {
     private lateinit var binding: FragmentResultBinding
-    private val alarmReceiver: AlarmReceiver = AlarmReceiver()
+    private val alarmReceiver: AlarmReceiver =
+        AlarmReceiver()
     private val resultViewModel: ResultViewModel by viewModels()
     private lateinit var userPreferences: UserPreferences
     private lateinit var plnViewModel: PlnViewModel
@@ -41,6 +45,7 @@ class ResultFragment : Fragment() {
         userPreferences = UserPreferences(requireContext())
         plnViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[PlnViewModel::class.java]
         pdamViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[PdamViewModel::class.java]
+        userPreferences = UserPreferences(requireContext())
 
         setUIContent()
         backToHomeButtonListener()
@@ -61,7 +66,9 @@ class ResultFragment : Fragment() {
             tvUsage.text = ""
         }
 
-        val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(R.string.pln))
+        val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(
+            R.string.pln
+        ))
         val type = if (isPLN) "listrik" else "air"
         val isFake = arguments?.getBoolean(TabFragment.RESULT, true) ?: false
         val numberRead = arguments?.getFloat(TabFragment.NUMBER_READ)
@@ -83,7 +90,6 @@ class ResultFragment : Fragment() {
                 tvDesc.text = "Penyimpanan gagal"
                 btnBack.visibility = View.VISIBLE
             }
-
             showToast("ERROR: ${e.message}")
         }
 
@@ -103,7 +109,7 @@ class ResultFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
         when (isPLN) {
             true -> {
-                plnViewModel.getPreviousNumberRead(user?.no_pln).observe(viewLifecycleOwner,{ prevNumberRead ->
+                plnViewModel.getPreviousNumberRead(user?.no_pln).observe(viewLifecycleOwner) { prevNumberRead ->
                     val record = PLNRecord(
                         user?.no_pln,
                         Timestamp.now(),
@@ -119,11 +125,11 @@ class ResultFragment : Fragment() {
                         .addOnFailureListener { e ->
                             Log.d("metron1", "Fail to add record with error $e")
                         }
-                })
+                }
             }
 
             false -> {
-                pdamViewModel.getPreviousNumberRead(user?.no_pdam).observe(viewLifecycleOwner,{ prevNumberRead ->
+                pdamViewModel.getPreviousNumberRead(user?.no_pdam).observe(viewLifecycleOwner) { prevNumberRead ->
                     val record = PDAMRecord(
                         user?.no_pdam,
                         Timestamp.now(),
@@ -139,7 +145,7 @@ class ResultFragment : Fragment() {
                         .addOnFailureListener { e ->
                             Log.d("metron1", "Fail to add record with error $e")
                         }
-                })
+                }
             }
         }
     }

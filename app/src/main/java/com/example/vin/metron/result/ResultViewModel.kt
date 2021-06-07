@@ -1,4 +1,4 @@
-package com.example.vin.metron.data.remote
+package com.example.vin.metron.result
 
 import android.content.Context
 import android.util.Log

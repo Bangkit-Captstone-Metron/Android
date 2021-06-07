@@ -30,34 +30,11 @@ class MainActivity : AppCompatActivity() {
     private fun setBottomNav(){
         val navController = findNavController(R.id.navigation_host)
         val appBarConfiguration = AppBarConfiguration.Builder(setOf(
-            R.id.navigation_home, R.id.navigation_history, R.id.navigation_profile
+            R.id.navigation_home, R.id.navigation_history, R.id.navigation_info,R.id.navigation_profile,
         )).build()
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         mainActivityBinding.bottomNavView.setupWithNavController(navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.options_menu, menu)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settings -> {
-                //TODO: go to settings activity
-                true
-            }
-            R.id.logout -> {
-                Firebase.auth.signOut()
-                Log.d("metron1", "current user after signed out: ${Firebase.auth.currentUser}")
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                true
-            }
-            else -> true
-        }
-    }
 }
