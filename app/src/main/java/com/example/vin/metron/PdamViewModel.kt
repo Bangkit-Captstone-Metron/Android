@@ -16,7 +16,7 @@ class PdamViewModel: ViewModel() {
         val recordsResult = MutableLiveData<ArrayList<PDAMRecord>>()
         val db = FirebaseFirestore.getInstance()
         db.collection("records_pdam")
-            .orderBy("time_end", Query.Direction.ASCENDING).get()
+            .orderBy("time_end", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { qs ->
                 val records = ArrayList<PDAMRecord>()
                 for(document in qs.documents){

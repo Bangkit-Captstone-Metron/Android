@@ -15,7 +15,7 @@ class PlnViewModel: ViewModel() {
         val recordsResult = MutableLiveData<ArrayList<PLNRecord>>()
         val db = FirebaseFirestore.getInstance()
         db.collection("records_pln")
-            .orderBy("time_end", Query.Direction.ASCENDING).get()
+            .orderBy("time_end", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { qs ->
                 val records = ArrayList<PLNRecord>()
                 for(document in qs.documents){
