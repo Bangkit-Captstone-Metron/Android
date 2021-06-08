@@ -15,10 +15,10 @@
 
         <TextView
             android:id="@+id/tv_welcome"
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            style="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Halo" />
@@ -43,11 +43,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:text="Lapor PLN"
-                style="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_logo_pln"
                 app:layout_constraintTop_toTopOf="parent"
@@ -85,11 +85,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:text="Lapor PDAM"
-                style="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_logo_pdam"
                 app:layout_constraintTop_toTopOf="parent"
@@ -115,15 +115,15 @@
 
         <TextView
             android:id="@+id/tv_news_title"
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:drawableRight="@drawable/ic_baseline_info_24"
-            style="@style/TextAppearance.AppCompat.Title"
+            android:text="Top News untuk kamu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Top News untuk kamu" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -131,22 +131,22 @@
 
             <TextView
                 android:id="@+id/tv_headline"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Info Pemadaman Listrik"
-                style="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/blue_1"
                 android:text="15 menit lalu"
+                android:textColor="@color/blue_1"
+                app:layout_constraintBottom_toBottomOf="@id/tv_headline"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_headline"
-                app:layout_constraintBottom_toBottomOf="@id/tv_headline"/>
+                app:layout_constraintTop_toTopOf="@id/tv_headline" />
 
             <TextView
                 android:layout_width="match_parent"
