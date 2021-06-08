@@ -14,3 +14,5 @@ to go door by door to record the usage of its users.
 - Monthly Reminder to upload the usage
 - Create & Read operation on user personal data and its usage data
 - Provide hotline and update news about electricity and water service.
+
+
