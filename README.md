@@ -16,22 +16,22 @@ to go door by door to record the usage of its users.
 - Provide hotline and update news about electricity and water service.
 
 Authentication Page
-![image](https://user-images.githubusercontent.com/47893326/121210081-959a2b80-c8a5-11eb-9337-599a03f3b563.png)
+![image](https://user-images.githubusercontent.com/47893326/121210081-959a2b80-c8a5-11eb-9337-599a03f3b563.png) <br />
 
 Home Page
-![image](https://user-images.githubusercontent.com/47893326/121210243-b793ae00-c8a5-11eb-912f-4b2b2a528020.png)
+![image](https://user-images.githubusercontent.com/47893326/121210243-b793ae00-c8a5-11eb-912f-4b2b2a528020.png) <br />
 
 Fake Detection Page
-![image](https://user-images.githubusercontent.com/47893326/121210305-c4b09d00-c8a5-11eb-821e-d940215847bc.png)
+![image](https://user-images.githubusercontent.com/47893326/121210305-c4b09d00-c8a5-11eb-821e-d940215847bc.png) <br />
 
 History Page
-![image](https://user-images.githubusercontent.com/47893326/121210363-d1cd8c00-c8a5-11eb-8098-8627ff34032b.png)
+![image](https://user-images.githubusercontent.com/47893326/121210363-d1cd8c00-c8a5-11eb-8098-8627ff34032b.png) <br />
 
 News Page
-![image](https://user-images.githubusercontent.com/47893326/121210476-e9a51000-c8a5-11eb-8171-074e48c28e7c.png)
+![image](https://user-images.githubusercontent.com/47893326/121210476-e9a51000-c8a5-11eb-8171-074e48c28e7c.png) <br />
 
 Profile Page
-![image](https://user-images.githubusercontent.com/47893326/121210589-fd507680-c8a5-11eb-81fd-28cc4e1fdcbb.png)
+![image](https://user-images.githubusercontent.com/47893326/121210589-fd507680-c8a5-11eb-81fd-28cc4e1fdcbb.png) <br />
 
 
 
