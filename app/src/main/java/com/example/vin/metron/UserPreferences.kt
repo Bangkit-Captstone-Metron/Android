@@ -15,8 +15,6 @@ class UserPreferences(context: Context) {
         const val ALLOW_REMINDER_NOTIF = "ALLOW_REMINDER_NOTIF"
     }
 
-
-    //Todo: Should be singleton
     private val preferences = context.getSharedPreferences(NAME_PREFS, Context.MODE_PRIVATE)
 
     fun setUser(document: QueryDocumentSnapshot) {

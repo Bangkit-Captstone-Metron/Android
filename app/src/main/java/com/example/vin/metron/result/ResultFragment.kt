@@ -10,15 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
-import com.example.vin.metron.PdamViewModel
-import com.example.vin.metron.PlnViewModel
-import com.example.vin.metron.R
-import com.example.vin.metron.UserPreferences
+import com.example.vin.metron.*
 import com.example.vin.metron.databinding.FragmentResultBinding
 import com.example.vin.metron.entities.PDAMRecord
 import com.example.vin.metron.entities.PLNRecord
-import com.example.vin.metron.home.TabFragment
 import com.example.vin.metron.profile.AlarmReceiver
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
@@ -75,12 +70,13 @@ class ResultFragment : Fragment() {
             tvUsage.text = ""
         }
 
-        val isPLN = (arguments?.getString(TabFragment.TYPE) == resources.getString(
+        val isPLN = (arguments?.getString(SERVICE_TYPE) == resources.getString(
             R.string.pln
         ))
         val type = if (isPLN) "listrik" else "air"
-        val isFake = arguments?.getBoolean(TabFragment.RESULT, true) ?: false
-        val numberRead = arguments?.getFloat(TabFragment.NUMBER_READ)
+        val unit = if (isPLN) "kW/h" else "meter kubik"
+        val isFake = arguments?.getBoolean(IS_FAKE, true) ?: false
+        val numberRead = arguments?.getFloat(OCR_READING)
         try {
             if (isFake) {
                 saveToDatabase(numberRead, isPLN)
@@ -89,7 +85,7 @@ class ResultFragment : Fragment() {
                     ivResultSucess.visibility = View.VISIBLE
                     btnBack.visibility = View.VISIBLE
                     tvDesc.text = "Data penggunaan $type berhasil tersimpan"
-                    tvUsage.text = "$numberRead kw/h"
+                    tvUsage.text = "$numberRead $unit"
                 }
             } else throw Exception("Gagal, Gunakan foto yang asli meteran anda yang jelas")
         } catch (e: Exception) {
@@ -129,10 +125,9 @@ class ResultFragment : Fragment() {
                         db.collection("records_pln")
                             .add(record)
                             .addOnSuccessListener {
-                                Log.d("metron1", "Record added")
+
                             }
                             .addOnFailureListener { e ->
-                                Log.d("metron1", "Fail to add record with error $e")
                             }
                     }
             }

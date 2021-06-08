@@ -23,15 +23,12 @@ class AlarmReceiver : BroadcastReceiver() {
             ACTION_REMIND_PLN ->{
                 val message = "Jangan lupa mengupload meteran listrik bulan ini di Metron!!"
                 showReminderNotification(context=context,notifId= NOTIF_REQ_CODE_PLN,message=message)
-                Log.d("result page receiver","pln")
             }
             ACTION_REMIND_PDAM ->{
                 val message = "Jangan lupa mengupload meteran air bulan ini di Metron!!"
                 showReminderNotification(context=context,notifId= NOTIF_REQ_CODE_PDAM,message=message)
-                Log.d("result page receiver","pdam")
             }
             else->{
-                Log.d("receiver","called")
                 Toast.makeText(context,"Unknown Action",Toast.LENGTH_SHORT).show()
             }
         }

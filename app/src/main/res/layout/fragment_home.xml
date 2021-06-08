@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:textSize="22sp"
-            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Halo" />
@@ -48,7 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:text="Lapor PLN"
-                android:textSize="22sp"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_logo_pln"
                 app:layout_constraintTop_toTopOf="parent"
@@ -57,8 +56,9 @@
 
             <ImageButton
                 android:id="@+id/btn_to_pln"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
                 android:src="@drawable/ic_baseline_arrow_forward_ios_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="30dp"
                 android:text="Lapor PDAM"
-                android:textSize="22sp"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_logo_pdam"
                 app:layout_constraintTop_toTopOf="parent"
@@ -98,8 +98,9 @@
 
             <ImageButton
                 android:id="@+id/btn_to_pdam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
                 android:src="@drawable/ic_baseline_arrow_forward_ios_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -119,8 +120,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:drawableRight="@drawable/ic_baseline_info_24"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="Top News untuk kamu" />
@@ -133,15 +133,16 @@
                 android:id="@+id/tv_headline"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Info Pemadaman Listrik!!"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:text="Info Pemadaman Listrik"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/blue_1"
                 android:text="15 menit lalu"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_headline"
@@ -151,7 +152,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:paddingRight="20dp"
                 android:text="Akan dilakukan jadwal pemadaman listrik wilayah ULP, Kebumen, Rabu(2/6) dan Kamis(3/6) mulai Pukul 09.00 s/d 15.00 WIB di Kecamaatan Padureso, Karangsambung, Prembun dan Bonorowo"
                 app:layout_constraintTop_toBottomOf="@id/tv_headline" />
         </androidx.constraintlayout.widget.ConstraintLayout>

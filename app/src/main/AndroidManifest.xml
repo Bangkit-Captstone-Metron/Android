@@ -2,18 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.vin.metron">
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <!--Request for remote data-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!--Notification-->
     <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!--Todo: Remove not used permission-->
-    <uses-feature android:name="android.hardware.camera.any" />
-    <!-- Change the current alarmNotification to not wake lock then remove this    -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
     <application
         android:allowBackup="true"

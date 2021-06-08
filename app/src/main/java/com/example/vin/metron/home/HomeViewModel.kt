@@ -1,6 +1,8 @@
 package com.example.vin.metron.home
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +17,7 @@ import retrofit2.Response
 class HomeViewModel : ViewModel() {
     private val apiService: ApiService = ApiConfig.provideApiService()
 
-    fun checkIsFakeFromURI(image: MultipartBody.Part): LiveData<ResponseIsFake> {
+    fun checkIsFakeFromURI(image: MultipartBody.Part,context: Context): LiveData<ResponseIsFake> {
         val result: MutableLiveData<ResponseIsFake> = MutableLiveData<ResponseIsFake>()
         val client = apiService.checkIsFakeFromURI(image)
         client.enqueue(object : Callback<ResponseIsFake> {
@@ -23,39 +25,14 @@ class HomeViewModel : ViewModel() {
                 call: retrofit2.Call<ResponseIsFake>,
                 response: Response<ResponseIsFake>
             ) {
+                Log.d("hv_model",response.body().toString())
                 result.value = response.body()
             }
 
             override fun onFailure(call: retrofit2.Call<ResponseIsFake>, t: Throwable) {
-                Log.d("res", "onFailure with error: $t")
-                throw Error(t.message.toString())
+                Toast.makeText(context,"Error Api",Toast.LENGTH_SHORT).show()
             }
         })
         return result
     }
-
-    /* Deprecated
-    fun checkIsFakeFromURL(): LiveData<ResponseIsFake> {
-        val result: MutableLiveData<ResponseIsFake> = MutableLiveData<ResponseIsFake>()
-        val hashMap = HashMap<String, String>()
-        hashMap.put(
-            "image_url",
-            "https://i.stack.imgur.com/MIe6s.png"
-        )
-        val client = apiService.checkIsFakeFromURL(hashMap)
-        client.enqueue(object : Callback<ResponseIsFake> {
-            override fun onResponse(
-                call: retrofit2.Call<ResponseIsFake>,
-                response: Response<ResponseIsFake>
-            ) {
-                result.value = response.body()
-            }
-
-            override fun onFailure(call: retrofit2.Call<ResponseIsFake>, t: Throwable) {
-                throw Error(t.message.toString())
-            }
-        })
-        return result
-    }
-     */
 }

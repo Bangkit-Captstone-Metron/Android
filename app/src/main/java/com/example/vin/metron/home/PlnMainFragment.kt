@@ -15,7 +15,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import com.example.vin.metron.R
+import com.example.vin.metron.*
 import com.example.vin.metron.databinding.FragmentPlnMainBinding
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
@@ -27,7 +27,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
+<<<<<<< HEAD
 class PlnMainFragment : Fragment(),View.OnClickListener {
+=======
+
+class PlnMainFragment : Fragment(), View.OnClickListener {
+>>>>>>> c773ab4a2d2df34ac8aaffe547279b8eb37c1ee3
     private lateinit var binding: FragmentPlnMainBinding
     private var cropActivityResultLauncher: ActivityResultLauncher<Any?>? = null
     private var cropResultUri: Uri? = null
@@ -43,15 +48,13 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
             return CropImage.getActivityResult(intent)?.uri
         }
     }
-    private var usage:String = ""
+    private var usage: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentPlnMainBinding.inflate(layoutInflater,container,false)
-        activity?.title = "Lapor PLN"
+        binding = FragmentPlnMainBinding.inflate(layoutInflater, container, false)
         return binding?.root
     }
 
@@ -65,7 +68,6 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
                 cropResultUri = it
             }
             binding.progressBar.visibility = View.VISIBLE
-            Log.d("ocr uri", cropResultUri.toString())
             if (cropResultUri != null) extractText(imageUri = cropResultUri!!)
             else Toast.makeText(
                 context,
@@ -79,7 +81,6 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
     }
 
 
-
     override fun onClick(view: View) {
         when (view.id) {
             R.id.cameraBtn -> {
@@ -87,7 +88,6 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
             }
             R.id.btn_submit -> {
                 Toast.makeText(context, "start submit", Toast.LENGTH_SHORT).show()
-                Log.d("res", "start submit")
                 try {
                     onSubmit()
                 } catch (e: Error) {
@@ -100,9 +100,8 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
     private fun extractText(imageUri: Uri) {
         val image = InputImage.fromFilePath(context, imageUri)
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-        val result = recognizer.process(image)
+        recognizer.process(image)
             .addOnSuccessListener { visionText ->
-                Log.d("ocr raw", visionText.text)
                 try {
                     usage = postProcessingOCR(visionText)
                     binding.apply {
@@ -110,7 +109,6 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
                         btnSubmit.visibility = View.VISIBLE
                     }
                 } catch (e: Error) {
-                    Log.d("ocr fail", "test")
                     Toast.makeText(context, e.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
@@ -125,7 +123,6 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
             "\\s+",
             ""
         ).toLowerCase().trim()
-        Log.d("ocr temp", tempOutput.toString())
         var outputString: String = ""
 
         for (i in tempOutput.indices) {
@@ -139,9 +136,10 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
             } else outputString += tempOutput[i]
         }
         Log.d("ocr size", outputString.trim().length.toString())
-        when(outputString.trim().length){
-            5 -> outputString += ".5"
-            6 -> outputString = outputString.substring(0,5) + "." + outputString.substring(5,outputString.length)
+        when (outputString.trim().length) {
+            5 -> outputString += "5"
+            6 -> outputString =
+                outputString.substring(0, 5) + "." + outputString.substring(5, outputString.length)
             else -> throw Error("Data digit tidak terbaca lengkap")
         }
         return outputString
@@ -152,7 +150,7 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
             tvOcrResult.text = ""
             btnSubmit.visibility = View.GONE
             photoIV.visibility = View.GONE
-            cameraBtn.visibility= View.VISIBLE
+            cameraBtn.visibility = View.VISIBLE
         }
     }
 
@@ -166,15 +164,14 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
             filename = file.name,
             body = requestBody
         )
-        homeViewModel.checkIsFakeFromURI(body).observe(viewLifecycleOwner) {
-            Log.d("metron1", "${it.isFake} and ${it.confidence}")
-            if (it.isFake != null && it.confidence>75.00) {
-                val usage = usage + "f"
+        homeViewModel.checkIsFakeFromURI(body, requireContext()).observe(viewLifecycleOwner) {
+            if (it.isFake != null && it.confidence > 75.00) {
+                val usage = (usage + "f").toFloat()
                 val bundle = Bundle()
-                bundle.putString(TabFragment.TYPE, resources.getString(requireArguments().getInt("section")))
-                bundle.putBoolean(TabFragment.RESULT, it.isFake)
-                bundle.putFloat(TabFragment.NUMBER_READ,usage.toFloat())
-                findNavController().navigate(R.id.action_plnMainFragment_to_resultFragment, bundle)
+                bundle.putString(SERVICE_TYPE, PLN)
+                bundle.putBoolean(IS_FAKE, it.isFake)
+                bundle.putFloat(OCR_READING, usage)
+                findNavController().navigate(R.id.action_plnMainFragment_to_resultFragment)
             }
             binding.progressBar.visibility = View.GONE
         }
