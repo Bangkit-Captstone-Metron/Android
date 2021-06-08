@@ -62,6 +62,7 @@ class PlnMainFragment : Fragment(),View.OnClickListener {
         cropActivityResultLauncher = registerForActivityResult(cropActivityResultContract) {
             it?.let {
                 binding.photoIV.setImageURI(it)
+                binding.photoIV.visibility = View.VISIBLE
                 cropResultUri = it
             }
             binding.progressBar.visibility = View.VISIBLE

@@ -1,5 +1,6 @@
 package com.example.vin.metron.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.R
+import com.example.vin.metron.UserPreferences
 import com.example.vin.metron.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(),View.OnClickListener{
@@ -23,6 +25,10 @@ class HomeFragment : Fragment(),View.OnClickListener{
         super.onViewCreated(view, savedInstanceState)
         binding.btnToPln.setOnClickListener(this)
         binding.btnToPdam.setOnClickListener(this)
+        val name = context?.getSharedPreferences(UserPreferences.NAME_PREFS, Context.MODE_PRIVATE)?.getString(
+            UserPreferences.NAME,"Pengguna"
+        )
+        binding.tvWelcome.text = resources.getString(R.string.welcome,name)
     }
 
 

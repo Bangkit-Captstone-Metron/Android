@@ -10,6 +10,7 @@
 
     <string name="profile_pln_id">ID PLN: %1$s</string>
     <string name="profile_pdam_id">ID PDAM: %1$s</string>
+    <string name="welcome">Welcome, %1$s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
