@@ -19,19 +19,19 @@ Authentication Page
 https://user-images.githubusercontent.com/47893326/121210081-959a2b80-c8a5-11eb-9337-599a03f3b563.png
 
 Home Page
-![image](https://user-images.githubusercontent.com/47893326/121210243-b793ae00-c8a5-11eb-912f-4b2b2a528020.png)
+https://user-images.githubusercontent.com/47893326/121210243-b793ae00-c8a5-11eb-912f-4b2b2a528020.png
 
 Fake Detection Page
-![image](https://user-images.githubusercontent.com/47893326/121210305-c4b09d00-c8a5-11eb-821e-d940215847bc.png)
+https://user-images.githubusercontent.com/47893326/121210305-c4b09d00-c8a5-11eb-821e-d940215847bc.png
 
 History Page
-![image](https://user-images.githubusercontent.com/47893326/121210363-d1cd8c00-c8a5-11eb-8098-8627ff34032b.png)
+https://user-images.githubusercontent.com/47893326/121210363-d1cd8c00-c8a5-11eb-8098-8627ff34032b.png
 
 News Page
-![image](https://user-images.githubusercontent.com/47893326/121210476-e9a51000-c8a5-11eb-8171-074e48c28e7c.png)
+https://user-images.githubusercontent.com/47893326/121210476-e9a51000-c8a5-11eb-8171-074e48c28e7c.png
 
 Profile Page
-![image](https://user-images.githubusercontent.com/47893326/121210589-fd507680-c8a5-11eb-81fd-28cc4e1fdcbb.png)
+https://user-images.githubusercontent.com/47893326/121210589-fd507680-c8a5-11eb-81fd-28cc4e1fdcbb.png
 
 
 
