@@ -6,33 +6,112 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".home.HomeFragment">
-    
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabsTL"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/viewPagerVP"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginBottom="5dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabGravity="fill"
-            app:tabMaxWidth="0dp"
-            app:tabSelectedTextColor="@color/blue_1"
-            app:tabTextColor="@color/blue_2" />
+            tools:text="Halo" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerVP"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabsTL"></androidx.viewpager2.widget.ViewPager2>
+            android:layout_height="2dp"
+            android:layout_marginVertical="10dp"
+            android:background="?android:attr/dividerVertical" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cv_logo_pln"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pln_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:text="Lapor PLN"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_logo_pln"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_to_pln"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="10dp"
+            android:background="?android:attr/dividerVertical" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cv_logo_pdam"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pdam_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:text="Lapor PDAM"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_logo_pdam"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btn_to_pdam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="10dp"
+            android:background="?android:attr/dividerVertical" />
+
+        <!--    Todo: Tambahin informasi terkini misal listrik padam jam berapa, harga listrik/air satuan-->
+    </LinearLayout>
 </ScrollView>

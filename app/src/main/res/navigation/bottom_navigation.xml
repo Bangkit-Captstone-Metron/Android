@@ -11,8 +11,11 @@
         android:name="com.example.vin.metron.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_home_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            android:id="@+id/action_navigation_home_to_plnMainFragment"
+            app:destination="@id/plnMainFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_pdamMainFragment"
+            app:destination="@id/pdamMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_history"
@@ -30,14 +33,35 @@
         android:label="Result"
         tools:layout="@layout/fragment_result" >
         <action
-            android:id="@+id/action_resultFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            android:id="@+id/action_resultFragment_to_plnMainFragment"
+            app:destination="@id/plnMainFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_pdamMainFragment"
+            app:destination="@id/pdamMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_info"
         android:name="com.example.vin.metron.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/plnMainFragment"
+        android:name="com.example.vin.metron.home.PlnMainFragment"
+        android:label="fragment_pln_main"
+        tools:layout="@layout/fragment_pln_main" >
+        <action
+            android:id="@+id/action_plnMainFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pdamMainFragment"
+        android:name="com.example.vin.metron.home.PdamMainFragment"
+        android:label="fragment_pdam_main"
+        tools:layout="@layout/fragment_pdam_main" >
+        <action
+            android:id="@+id/action_pdamMainFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
 
 
 </navigation>

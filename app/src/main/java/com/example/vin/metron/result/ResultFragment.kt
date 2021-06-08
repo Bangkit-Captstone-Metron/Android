@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.PdamViewModel
 import com.example.vin.metron.PlnViewModel
@@ -43,8 +44,14 @@ class ResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userPreferences = UserPreferences(requireContext())
-        plnViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[PlnViewModel::class.java]
-        pdamViewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[PdamViewModel::class.java]
+        plnViewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProvider.NewInstanceFactory()
+        )[PlnViewModel::class.java]
+        pdamViewModel = ViewModelProvider(
+            requireActivity(),
+            ViewModelProvider.NewInstanceFactory()
+        )[PdamViewModel::class.java]
         userPreferences = UserPreferences(requireContext())
 
         setUIContent()
@@ -53,7 +60,8 @@ class ResultFragment : Fragment() {
 
     private fun backToHomeButtonListener() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_resultFragment_to_navigation_home)
+//            TOdo: perform back button
+//            findNavController().navigate(R.id.action_resultFragment_to_navigation_home)
         }
     }
 
@@ -109,43 +117,45 @@ class ResultFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
         when (isPLN) {
             true -> {
-                plnViewModel.getPreviousNumberRead(user?.no_pln).observe(viewLifecycleOwner) { prevNumberRead ->
-                    val record = PLNRecord(
-                        user?.no_pln,
-                        Timestamp.now(),
-                        Timestamp.now(),
-                        numberRead,
-                        (numberRead!! - prevNumberRead!!)
-                    )
-                    db.collection("records_pln")
-                        .add(record)
-                        .addOnSuccessListener {
-                            Log.d("metron1", "Record added")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.d("metron1", "Fail to add record with error $e")
-                        }
-                }
+                plnViewModel.getPreviousNumberRead(user?.no_pln)
+                    .observe(viewLifecycleOwner) { prevNumberRead ->
+                        val record = PLNRecord(
+                            user?.no_pln,
+                            Timestamp.now(),
+                            Timestamp.now(),
+                            numberRead,
+                            (numberRead!! - prevNumberRead!!)
+                        )
+                        db.collection("records_pln")
+                            .add(record)
+                            .addOnSuccessListener {
+                                Log.d("metron1", "Record added")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.d("metron1", "Fail to add record with error $e")
+                            }
+                    }
             }
 
             false -> {
-                pdamViewModel.getPreviousNumberRead(user?.no_pdam).observe(viewLifecycleOwner) { prevNumberRead ->
-                    val record = PDAMRecord(
-                        user?.no_pdam,
-                        Timestamp.now(),
-                        Timestamp.now(),
-                        numberRead,
-                        (numberRead!! - prevNumberRead!!)
-                    )
-                    db.collection("records_pdam")
-                        .add(record)
-                        .addOnSuccessListener {
-                            Log.d("metron1", "Record added")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.d("metron1", "Fail to add record with error $e")
-                        }
-                }
+                pdamViewModel.getPreviousNumberRead(user?.no_pdam)
+                    .observe(viewLifecycleOwner) { prevNumberRead ->
+                        val record = PDAMRecord(
+                            user?.no_pdam,
+                            Timestamp.now(),
+                            Timestamp.now(),
+                            numberRead,
+                            (numberRead!! - prevNumberRead!!)
+                        )
+                        db.collection("records_pdam")
+                            .add(record)
+                            .addOnSuccessListener {
+                                Log.d("metron1", "Record added")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.d("metron1", "Fail to add record with error $e")
+                            }
+                    }
             }
         }
     }
