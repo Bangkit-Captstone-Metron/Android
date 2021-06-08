@@ -27,7 +27,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-
 class PlnMainFragment : Fragment(),View.OnClickListener {
     private lateinit var binding: FragmentPlnMainBinding
     private var cropActivityResultLauncher: ActivityResultLauncher<Any?>? = null

@@ -37,6 +37,7 @@ class HomeFragment : Fragment(),View.OnClickListener{
         when(v?.id){
             R.id.btn_to_pln->{
                 Toast.makeText(context,"Test",Toast.LENGTH_SHORT).show()
+
                 findNavController().navigate(R.id.action_navigation_home_to_plnMainFragment)
             }
             R.id.btn_to_pdam->{

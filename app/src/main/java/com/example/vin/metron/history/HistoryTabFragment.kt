@@ -25,6 +25,7 @@ class HistoryTabFragment : Fragment() {
     private lateinit var binding: FragmentHistoryTabBinding
     private lateinit var plnViewModel: PlnViewModel
     private lateinit var pdamViewModel: PdamViewModel
+    private lateinit var userPreferences: UserPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,17 +38,18 @@ class HistoryTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        setRecyclerView()
+        userPreferences = UserPreferences(requireContext())
+        setRecyclerView(userPreferences)
     }
 
-    private fun setRecyclerView(){
+    private fun setRecyclerView(userPreferences: UserPreferences){
+        val user = userPreferences.getUser()
         val type = arguments?.get("section")
         when(type){
             R.string.pln ->{
                 binding.historyRV.layoutManager = LinearLayoutManager(requireContext())
                 plnViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[PlnViewModel::class.java]
-                plnViewModel.getPLNRecords().observe(viewLifecycleOwner,{ records ->
+                plnViewModel.getPLNRecords(user?.no_pln).observe(viewLifecycleOwner,{ records ->
                     binding.progressBar.visibility = View.GONE
                     binding.historyRV.adapter = PLNRecordAdapter(records)
                 })
@@ -55,7 +57,7 @@ class HistoryTabFragment : Fragment() {
             R.string.pdam -> {
                 binding.historyRV.layoutManager = LinearLayoutManager(requireContext())
                 pdamViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[PdamViewModel::class.java]
-                pdamViewModel.getPDAMRecords().observe(viewLifecycleOwner,{ records ->
+                pdamViewModel.getPDAMRecords(user?.no_pdam).observe(viewLifecycleOwner,{ records ->
                     binding.progressBar.visibility = View.GONE
                     binding.historyRV.adapter = PDAMRecordAdapter(records)
                 })
