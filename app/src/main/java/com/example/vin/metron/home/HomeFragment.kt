@@ -35,13 +35,8 @@ class HomeFragment : Fragment(),View.OnClickListener{
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btn_to_pln->{
-                Toast.makeText(context,"Test",Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_navigation_home_to_plnMainFragment)
-            }
-            R.id.btn_to_pdam->{
-
-            }
+            R.id.btn_to_pln-> findNavController().navigate(R.id.action_navigation_home_to_plnMainFragment)
+            R.id.btn_to_pdam-> findNavController().navigate(R.id.action_navigation_home_to_pdamMainFragment)
         }
     }
 

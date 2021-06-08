@@ -42,12 +42,12 @@
     <fragment
         android:id="@+id/navigation_info"
         android:name="com.example.vin.metron.info.InfoFragment"
-        android:label="fragment_info"
+        android:label="Informasi"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/plnMainFragment"
         android:name="com.example.vin.metron.home.PlnMainFragment"
-        android:label="fragment_pln_main"
+        android:label="⚡ Lapor PLN"
         tools:layout="@layout/fragment_pln_main" >
         <action
             android:id="@+id/action_plnMainFragment_to_resultFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/pdamMainFragment"
         android:name="com.example.vin.metron.home.PdamMainFragment"
-        android:label="fragment_pdam_main"
+        android:label="💧 Lapor PDAM"
         tools:layout="@layout/fragment_pdam_main" >
         <action
             android:id="@+id/action_pdamMainFragment_to_resultFragment"

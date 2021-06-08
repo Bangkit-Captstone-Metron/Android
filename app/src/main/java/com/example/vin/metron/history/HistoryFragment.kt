@@ -11,7 +11,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.vin.metron.databinding.ContentTabBinding
 import com.example.vin.metron.databinding.FragmentHistoryBinding
 import com.example.vin.metron.home.HomeFragment
-import com.example.vin.metron.home.SectionPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HistoryFragment : Fragment() {
