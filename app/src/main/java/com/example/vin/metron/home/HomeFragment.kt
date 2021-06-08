@@ -48,7 +48,6 @@ class HomeFragment : Fragment(),View.OnClickListener{
         }
     }
 
-
     companion object{
         val TAB_TITLES = intArrayOf(
             R.string.pln,
