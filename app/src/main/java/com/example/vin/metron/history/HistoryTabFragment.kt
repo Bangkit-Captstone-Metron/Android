@@ -1,6 +1,7 @@
 package com.example.vin.metron.history
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,15 +52,24 @@ class HistoryTabFragment : Fragment() {
                 plnViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[PlnViewModel::class.java]
                 plnViewModel.getPLNRecords(user?.no_pln).observe(viewLifecycleOwner,{ records ->
                     binding.progressBar.visibility = View.GONE
-                    binding.historyRV.adapter = PLNRecordAdapter(records)
+                    if(records.size == 0){
+                        binding.noDataTV.visibility = View.VISIBLE
+                    }else{
+                        binding.historyRV.adapter = PLNRecordAdapter(records)
+                    }
                 })
             }
             R.string.pdam -> {
                 binding.historyRV.layoutManager = LinearLayoutManager(requireContext())
                 pdamViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[PdamViewModel::class.java]
                 pdamViewModel.getPDAMRecords(user?.no_pdam).observe(viewLifecycleOwner,{ records ->
+                    Log.d("metron1", "changed with $records")
                     binding.progressBar.visibility = View.GONE
-                    binding.historyRV.adapter = PDAMRecordAdapter(records)
+                    if(records.size == 0){
+                        binding.noDataTV.visibility = View.VISIBLE
+                    }else{
+                        binding.historyRV.adapter = PDAMRecordAdapter(records)
+                    }
                 })
             }
         }

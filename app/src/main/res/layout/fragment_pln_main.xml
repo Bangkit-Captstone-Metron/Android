@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@android:color/holo_orange_dark"
-                android:text="lapor"
+                android:text="@string/lapor"
                 android:visibility="invisible" />
 
         </LinearLayout>

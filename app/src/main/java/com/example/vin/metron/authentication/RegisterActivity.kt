@@ -54,12 +54,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     val user = User(email, name, noPln, noPdam, phone, password)
                     db.collection("users")
                         .add(user)
-                        .addOnSuccessListener { documentReference ->
+                        .addOnSuccessListener {
                             showToast("Register Successful")
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }
-                        .addOnFailureListener { e ->
+                        .addOnFailureListener {
                             showToast("Register failed, please check your data again")
                         }
                 }else{

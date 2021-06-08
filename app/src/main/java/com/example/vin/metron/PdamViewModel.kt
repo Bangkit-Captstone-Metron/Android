@@ -20,15 +20,17 @@ class PdamViewModel: ViewModel() {
             .orderBy("time_end", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { qs ->
                 val records = ArrayList<PDAMRecord>()
-                for(document in qs.documents){
-                    val record = PDAMRecord(
-                        document.get("no_pdam").toString(),
-                        document.get("time_start") as Timestamp,
-                        document.get("time_end") as Timestamp,
-                        document.get("number_read").toString().toFloat(),
-                        document.get("usage").toString().toFloat()
-                    )
-                    records.add(record)
+                if(qs.documents.size != 0){
+                    for(document in qs.documents){
+                        val record = PDAMRecord(
+                            document.get("no_pdam").toString(),
+                            document.get("time_start") as Timestamp,
+                            document.get("time_end") as Timestamp,
+                            document.get("number_read").toString().toFloat(),
+                            document.get("usage").toString().toFloat()
+                        )
+                        records.add(record)
+                    }
                 }
                 recordsResult.value = records
             }

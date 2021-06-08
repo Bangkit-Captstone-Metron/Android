@@ -18,7 +18,6 @@ import java.util.*
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d("receiver","I am so sleepy")
         when(intent.action){
             ACTION_REMIND_PLN ->{
                 val message = "Jangan lupa mengupload meteran listrik bulan ini di Metron!!"
@@ -35,23 +34,24 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
 
-    fun setAlarm(context: Context, schedule: Calendar,isPLN:Boolean) {
-        Log.d("result page receiver",schedule.toString())
+    fun setAlarm(context: Context, schedule: Calendar?,isPLN:Boolean) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.action = if (isPLN) ACTION_REMIND_PLN else ACTION_REMIND_PDAM
 
         val reqCode = if (isPLN) NOTIF_REQ_CODE_PLN else NOTIF_REQ_CODE_PDAM
         val pendingIntent = PendingIntent.getBroadcast(context, reqCode, intent, 0)
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            schedule.timeInMillis,
-            AlarmManager.INTERVAL_DAY * ALARM_RECURRING_PERIOD,
-            pendingIntent
-        )
+        if (schedule != null) {
+            alarmManager.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,
+                schedule.timeInMillis,
+                AlarmManager.INTERVAL_DAY * ALARM_RECURRING_PERIOD,
+                pendingIntent
+            )
+        }
     }
 
-    fun showReminderNotification(context: Context, notifId: Int, message: String) {
+    private fun showReminderNotification(context: Context, notifId: Int, message: String) {
         val type = if (notifId == NOTIF_REQ_CODE_PLN) "listrik" else "air"
         val channelId = "Reminder Penggunaan"
         val channelName = "Reminder Penggunaan"
@@ -72,9 +72,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentIntent(onTapPendingIntent)
             .setAutoCancel(true)
 
-        //Untuk android Oreo ke atas
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            /* Create or update. */
             val channel = NotificationChannel(
                 channelId,
                 channelName,

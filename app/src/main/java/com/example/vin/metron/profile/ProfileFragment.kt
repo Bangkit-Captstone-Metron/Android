@@ -26,8 +26,10 @@ class ProfileFragment : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
-        binding.btnLogout.setOnClickListener(this)
-        binding.smNotif.setOnClickListener(this)
+        binding.logoutTV.apply {
+            setOnClickListener(this@ProfileFragment)
+            binding.smNotif.setOnClickListener(this@ProfileFragment)
+        }
         return binding.root
     }
 
@@ -37,7 +39,7 @@ class ProfileFragment : Fragment(),View.OnClickListener {
         getUserData()
     }
 
-    fun getUserData(){
+    private fun getUserData(){
         profileViewModel.getUser().observe(viewLifecycleOwner){user ->
             Log.d("user_data",user.toString())
             binding.tvUsername.text = user.name
@@ -51,9 +53,8 @@ class ProfileFragment : Fragment(),View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id){
-            R.id.btn_logout->{
+            R.id.logoutTV->{
                 Firebase.auth.signOut()
-                Log.d("metron1", "current user after signed out: ${Firebase.auth.currentUser}")
                 val intent = Intent(requireContext(), LoginActivity::class.java)
                 startActivity(intent)
             }

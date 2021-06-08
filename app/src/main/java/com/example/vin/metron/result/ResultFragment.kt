@@ -104,8 +104,9 @@ class ResultFragment : Fragment() {
             context = requireContext(),
             isPLN = isPLN
         )
-        Log.d("result page", schedule.toString())
-        alarmReceiver.setAlarm(context = requireContext(), schedule = schedule, isPLN = isPLN)
+        if(schedule != null) {
+            alarmReceiver.setAlarm(context = requireContext(), schedule = schedule, isPLN = isPLN)
+        }
     }
 
     private fun saveToDatabase(numberRead: Float?, isPLN: Boolean) {

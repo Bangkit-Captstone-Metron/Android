@@ -153,7 +153,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:text="Akan dilakukan jadwal pemadaman listrik wilayah ULP, Kebumen, Rabu(2/6) dan Kamis(3/6) mulai Pukul 09.00 s/d 15.00 WIB di Kecamaatan Padureso, Karangsambung, Prembun dan Bonorowo"
-                app:layout_constraintTop_toBottomOf="@id/tv_headline" />
+                app:layout_constraintTop_toBottomOf="@id/tv_headline"
+                android:justificationMode="inter_word"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
