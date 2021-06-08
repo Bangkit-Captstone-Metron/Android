@@ -83,7 +83,6 @@ class ResultFragment : Fragment() {
         try {
             if (isFake) {
                 saveToDatabase(numberRead, isPLN)
-                //Todo: Save to Firestore DB
                 scheduleAlarm(isPLN = isPLN)
                 binding.apply {
                     ivResultSucess.visibility = View.VISIBLE
