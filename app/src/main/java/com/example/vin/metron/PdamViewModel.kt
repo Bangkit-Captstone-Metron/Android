@@ -12,10 +12,11 @@ import com.google.firebase.firestore.Query
 
 class PdamViewModel: ViewModel() {
 
-    fun getPDAMRecords(): LiveData<ArrayList<PDAMRecord>>{
+    fun getPDAMRecords(noPdam: String?): LiveData<ArrayList<PDAMRecord>>{
         val recordsResult = MutableLiveData<ArrayList<PDAMRecord>>()
         val db = FirebaseFirestore.getInstance()
         db.collection("records_pdam")
+            .whereEqualTo("no_pdam", noPdam)
             .orderBy("time_end", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { qs ->
                 val records = ArrayList<PDAMRecord>()

@@ -11,10 +11,11 @@ import com.google.firebase.firestore.Query
 
 class PlnViewModel: ViewModel() {
 
-    fun getPLNRecords(): LiveData<ArrayList<PLNRecord>>{
+    fun getPLNRecords(noPln: String?): LiveData<ArrayList<PLNRecord>>{
         val recordsResult = MutableLiveData<ArrayList<PLNRecord>>()
         val db = FirebaseFirestore.getInstance()
         db.collection("records_pln")
+            .whereEqualTo("no_pln", noPln)
             .orderBy("time_end", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { qs ->
                 val records = ArrayList<PLNRecord>()

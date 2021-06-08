@@ -37,7 +37,7 @@ class UserPreferences(context: Context) {
 
     fun getUser(): User? {
         if (!preferences.contains(EMAIL)) return null
-        val user = User(
+        return User(
             preferences.getString(EMAIL, ""),
             preferences.getString(NAME, ""),
             preferences.getString(NO_PLN, ""),
@@ -46,7 +46,6 @@ class UserPreferences(context: Context) {
             null,
             preferences.getBoolean(ALLOW_REMINDER_NOTIF, true)
         )
-        return user
     }
 }
 

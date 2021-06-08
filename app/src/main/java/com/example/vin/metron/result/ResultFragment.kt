@@ -55,6 +55,7 @@ class ResultFragment : Fragment() {
 
     private fun backToHomeButtonListener() {
         binding.btnBack.setOnClickListener {
+            requireActivity().finish()
 //            TOdo: perform back button
 //            findNavController().navigate(R.id.action_resultFragment_to_navigation_home)
         }
