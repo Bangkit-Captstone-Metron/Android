@@ -10,9 +10,4 @@ interface ApiService {
     fun checkIsFakeFromURI(
         @Part image: MultipartBody.Part,
     ): Call<ResponseIsFake>
-
-    @POST("fake_checker")
-    fun checkIsFakeFromURL(
-        @Body hashMap: HashMap<String, String>
-    ): Call<ResponseIsFake>
 }
