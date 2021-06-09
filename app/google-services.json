@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "156490262736",
+    "project_id": "electricwaterrecord-metronteam",
+    "storage_bucket": "electricwaterrecord-metronteam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156490262736:android:5022c617c3d9b9898496d5",
+        "android_client_info": {
+          "package_name": "com.example.vin.metron"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156490262736-1ij9hr5knpadc9evqsoq1ntr3lvg05ss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjmVWBrwIT38Yx6AVIdH1b20Vm32Wb_Bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156490262736-1ij9hr5knpadc9evqsoq1ntr3lvg05ss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
