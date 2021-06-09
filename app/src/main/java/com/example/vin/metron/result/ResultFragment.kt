@@ -1,17 +1,14 @@
 package com.example.vin.metron.result
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.NavUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.*
 import com.example.vin.metron.databinding.FragmentResultBinding
@@ -80,8 +77,7 @@ class ResultFragment : Fragment() {
         val type = if (isPLN) "listrik" else "air"
         val unit = if (isPLN) "kW/h" else "meter kubik"
         val isFake = arguments?.getBoolean(IS_FAKE, true) ?: false
-        val numberRead = arguments?.getFloat(OCR_READING)
-        Log.d("metron1", "$isFake")
+        val numberRead = arguments?.getDouble(OCR_READING)
         try {
             if (isFake) {
                 saveToDatabase(numberRead, isPLN)
@@ -114,48 +110,57 @@ class ResultFragment : Fragment() {
         }
     }
 
-    private fun saveToDatabase(numberRead: Float?, isPLN: Boolean) {
+    private fun saveToDatabase(numberRead: Double?, isPLN: Boolean) {
         val user = userPreferences.getUser()
         val db = FirebaseFirestore.getInstance()
         when (isPLN) {
             true -> {
-                plnViewModel.getPreviousNumberRead(user?.no_pln)
-                    .observe(viewLifecycleOwner) { prevNumberRead ->
-                        val record = PLNRecord(
-                            user?.no_pln,
-                            Timestamp.now(),
-                            Timestamp.now(),
-                            numberRead,
-                            (numberRead!! - prevNumberRead!!)
-                        )
-                        db.collection("records_pln")
-                            .add(record)
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                            }
+                plnViewModel.getPreviousRecord(user?.no_pln)
+                    .observe(viewLifecycleOwner) { recordResult ->
+                        var record: PLNRecord? = null
+                        if(recordResult!=null) {
+                            record = PLNRecord(
+                                user?.no_pln,
+                                recordResult.time_end,
+                                Timestamp.now(),
+                                numberRead,
+                                (numberRead!! - recordResult.number_read!!)
+                            )
+                        }else{
+                            record = PLNRecord(
+                                user?.no_pln,
+                                Timestamp.now(),
+                                Timestamp.now(),
+                                numberRead,
+                                numberRead
+                            )
+                        }
+                        db.collection("records_pln").add(record)
                     }
             }
 
             false -> {
-                pdamViewModel.getPreviousNumberRead(user?.no_pdam)
-                    .observe(viewLifecycleOwner) { prevNumberRead ->
-                        val record = PDAMRecord(
-                            user?.no_pdam,
-                            Timestamp.now(),
-                            Timestamp.now(),
-                            numberRead,
-                            (numberRead!! - prevNumberRead!!)
-                        )
-                        db.collection("records_pdam")
-                            .add(record)
-                            .addOnSuccessListener {
-                                Log.d("metron1", "Record added")
-                            }
-                            .addOnFailureListener { e ->
-                                Log.d("metron1", "Fail to add record with error $e")
-                            }
+                pdamViewModel.getPreviousRecord(user?.no_pdam)
+                    .observe(viewLifecycleOwner) { recordResult ->
+                        var record: PDAMRecord? = null
+                        if(recordResult!=null) {
+                            record = PDAMRecord(
+                                user?.no_pdam,
+                                recordResult.time_end,
+                                Timestamp.now(),
+                                numberRead,
+                                (numberRead!! - recordResult.number_read!!)
+                            )
+                        }else{
+                            record = PDAMRecord(
+                                user?.no_pdam,
+                                Timestamp.now(),
+                                Timestamp.now(),
+                                numberRead,
+                                numberRead
+                            )
+                        }
+                        db.collection("records_pdam").add(record!!)
                     }
             }
         }

@@ -26,8 +26,8 @@ class PdamViewModel: ViewModel() {
                             document.get("no_pdam").toString(),
                             document.get("time_start") as Timestamp,
                             document.get("time_end") as Timestamp,
-                            document.get("number_read").toString().toFloat(),
-                            document.get("usage").toString().toFloat()
+                            document.get("number_read").toString().toDouble(),
+                            document.get("usage").toString().toDouble()
                         )
                         records.add(record)
                     }
@@ -41,8 +41,8 @@ class PdamViewModel: ViewModel() {
         return recordsResult
     }
 
-    fun getPreviousNumberRead(noPdam: String?): LiveData<Float?> {
-        val prevNumberReadResult = MutableLiveData<Float?>()
+    fun getPreviousRecord(noPdam: String?): LiveData<PDAMRecord?> {
+        val pdamResult = MutableLiveData<PDAMRecord?>()
         val db = FirebaseFirestore.getInstance()
         db.collection("records_pdam")
             .whereEqualTo("no_pdam", noPdam)
@@ -50,16 +50,21 @@ class PdamViewModel: ViewModel() {
             .get()
             .addOnSuccessListener {
                 if(it.documents.size == 0){
-                    prevNumberReadResult.value = 0.0f
+                    pdamResult.value = null
                 } else{
-                    prevNumberReadResult.value = it.documents[0].get("number_read").toString().toFloatOrNull()
-                    Log.d("metron1","success with doc: ${it.documents[0]}")
+                    pdamResult.value = PDAMRecord(
+                        it.documents[0].get("no_pdam").toString(),
+                        it.documents[0].get("time_start") as Timestamp,
+                        it.documents[0].get("time_end") as Timestamp,
+                        it.documents[0].get("number_read") as Double,
+                        it.documents[0].get("usage") as Double
+                    )
                 }
             }
             .addOnFailureListener{
                 Log.d("metron1", "Fail to get previous record from database")
             }
 
-        return prevNumberReadResult
+        return pdamResult
     }
 }

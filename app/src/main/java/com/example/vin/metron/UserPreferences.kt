@@ -2,6 +2,8 @@ package com.example.vin.metron
 
 import android.content.Context
 import com.example.vin.metron.entities.User
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class UserPreferences(context: Context) {
@@ -17,7 +19,7 @@ class UserPreferences(context: Context) {
 
     private val preferences = context.getSharedPreferences(NAME_PREFS, Context.MODE_PRIVATE)
 
-    fun setUser(document: QueryDocumentSnapshot) {
+    fun setUser(document: DocumentSnapshot) {
         val editor = preferences.edit()
         editor.putString(EMAIL, document.get("email").toString())
         editor.putString(NAME, document.get("name").toString())
@@ -25,13 +27,13 @@ class UserPreferences(context: Context) {
         editor.putString(NO_PDAM, document.get("no_pdam").toString())
         editor.putString(PHONE, document.get("phone").toString())
         if (!preferences.contains(ALLOW_REMINDER_NOTIF)) editor.putBoolean(ALLOW_REMINDER_NOTIF, true)
-        editor.commit()
+        editor.apply()
     }
 
     fun setReminderMode(isEnable:Boolean) {
         val editor = preferences.edit()
         editor.putBoolean(ALLOW_REMINDER_NOTIF, isEnable)
-        editor.commit()
+        editor.apply()
     }
 
 

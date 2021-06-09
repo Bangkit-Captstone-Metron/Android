@@ -37,6 +37,8 @@ class ProfileViewModel : ViewModel() {
                     .setTitle("Menonaktifkan Notifikasi Pengingat")
                     .setMessage("Anda tidak akan menerima notifikasi pengingat bulanan untuk mengupload meteran jika menu ini dinonaktifkan. Lanjutkan ?")
                     .setNegativeButton("Batal") { _,_ ->
+                        user.value?.isReminderNotifEnable = false
+                        userPreferences.setReminderMode(isEnable = false)
                     }
                     .setPositiveButton("Ya, Nonaktifkan saja") { _,_ ->
                         user.value?.isReminderNotifEnable = false

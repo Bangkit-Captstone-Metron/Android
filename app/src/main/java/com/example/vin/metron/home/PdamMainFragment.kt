@@ -159,11 +159,11 @@ class PdamMainFragment : Fragment(),View.OnClickListener {
         )
         homeViewModel.checkIsFakeFromURI(body,requireContext()).observe(viewLifecycleOwner) {
             if (it.isFake != null && it.confidence>75.00) {
-                val usage = usage.toFloat()
+                val usage = usage
                 val bundle = Bundle()
                 bundle.putString(SERVICE_TYPE, PDAM)
                 bundle.putBoolean(IS_FAKE, it.isFake)
-                bundle.putFloat(OCR_READING,usage)
+                bundle.putDouble(OCR_READING,usage.toDouble())
                 findNavController().navigate(R.id.action_pdamMainFragment_to_resultFragment,bundle)
             }
             binding.progressBar.visibility = View.GONE

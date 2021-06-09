@@ -23,8 +23,12 @@ class HomeFragment : Fragment(),View.OnClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnToPln.setOnClickListener(this)
-        binding.btnToPdam.setOnClickListener(this)
+        binding.apply {
+            laporPlnLayout.setOnClickListener(this@HomeFragment)
+            laporPdamLayout.setOnClickListener(this@HomeFragment)
+            binding.btnToPln.setOnClickListener(this@HomeFragment)
+            binding.btnToPdam.setOnClickListener(this@HomeFragment)
+        }
         val name = context?.getSharedPreferences(UserPreferences.NAME_PREFS, Context.MODE_PRIVATE)?.getString(
             UserPreferences.NAME,"Pengguna"
         )
@@ -33,8 +37,10 @@ class HomeFragment : Fragment(),View.OnClickListener{
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btn_to_pln-> findNavController().navigate(R.id.action_navigation_home_to_plnMainFragment)
-            R.id.btn_to_pdam-> findNavController().navigate(R.id.action_navigation_home_to_pdamMainFragment)
+            R.id.laporPlnLayout-> findNavController().navigate(R.id.action_navigation_home_to_plnMainFragment)
+            R.id.laporPdamLayout-> findNavController().navigate(R.id.action_navigation_home_to_pdamMainFragment)
+            R.id.btn_to_pln -> findNavController().navigate(R.id.action_navigation_home_to_plnMainFragment)
+            R.id.btn_to_pdam -> findNavController().navigate(R.id.action_navigation_home_to_pdamMainFragment)
         }
     }
 

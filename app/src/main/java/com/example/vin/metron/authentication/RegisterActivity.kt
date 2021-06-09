@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.vin.metron.MainActivity
 import com.example.vin.metron.R
+import com.example.vin.metron.UserPreferences
+import com.example.vin.metron.UserViewModel
 import com.example.vin.metron.databinding.ActivityRegisterBinding
 import com.example.vin.metron.entities.User
 import com.google.firebase.auth.FirebaseAuth
@@ -18,12 +21,16 @@ import com.google.firebase.ktx.Firebase
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var fAuth: FirebaseAuth
+    private lateinit var userPreference: UserPreferences
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        userPreference = UserPreferences(this)
+        userViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[UserViewModel::class.java]
         binding.registerBtn.setOnClickListener(this)
 
         fAuth = Firebase.auth
@@ -54,8 +61,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     val user = User(email, name, noPln, noPdam, phone, password)
                     db.collection("users")
                         .add(user)
-                        .addOnSuccessListener {
+                        .addOnSuccessListener { documentRef ->
                             showToast("Register Successful")
+                            userViewModel.getUserDataByDocRef(documentRef).observe(this, {
+                                userPreference.setUser(it)
+                            })
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }

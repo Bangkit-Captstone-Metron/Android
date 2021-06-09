@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.vin.metron.result.ResultFragment"
-        android:label="Result"
+        android:label="Hasil"
         tools:layout="@layout/fragment_result" >
         <action
             android:id="@+id/action_resultFragment_to_plnMainFragment"
@@ -48,7 +48,7 @@
         android:id="@+id/plnMainFragment"
         android:name="com.example.vin.metron.home.PlnMainFragment"
         android:label="⚡ Lapor PLN"
-        tools:layout="@layout/fragment_pln_main" >
+        tools:layout="@layout/fragment_pln_main">
         <action
             android:id="@+id/action_plnMainFragment_to_resultFragment"
             app:destination="@id/resultFragment" />

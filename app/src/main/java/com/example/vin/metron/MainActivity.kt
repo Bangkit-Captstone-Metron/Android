@@ -1,16 +1,12 @@
 package com.example.vin.metron
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.vin.metron.authentication.LoginActivity
 import com.example.vin.metron.databinding.ActivityMainBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -22,9 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mainActivityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainActivityBinding.root)
-
         setBottomNav()
-        Log.d("metron1", "current user in main act: ${Firebase.auth.currentUser}")
+        Log.d("metron1", "current user in main act: ${Firebase.auth.currentUser?.email}")
     }
 
     private fun setBottomNav(){

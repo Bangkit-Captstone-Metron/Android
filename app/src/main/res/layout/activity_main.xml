@@ -12,7 +12,7 @@
         android:id="@+id/navigation_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:defaultNavHost="true"
         app:navGraph="@navigation/bottom_navigation"
         android:layout_weight="90"/>

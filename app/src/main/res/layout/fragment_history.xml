@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".history.HistoryFragment">
+    tools:context=".history.HistoryFragment"
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabsTL"
@@ -18,7 +20,8 @@
         app:tabGravity="fill"
         app:tabMaxWidth="0dp"
         app:tabSelectedTextColor="@color/blue_1"
-        app:tabTextColor="@color/blue_2" />
+        app:tabTextColor="@color/blue_2"
+        android:layout_weight="10"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerVP"
@@ -26,6 +29,6 @@
         android:layout_height="500dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabsTL"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tabsTL"
+        android:layout_weight="90"/>
+</LinearLayout>

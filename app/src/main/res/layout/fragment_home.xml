@@ -30,6 +30,7 @@
             android:background="?android:attr/dividerVertical" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/laporPlnLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -72,6 +73,7 @@
             android:background="?android:attr/dividerVertical" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/laporPdamLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -92,9 +94,7 @@
                 android:text="Lapor PDAM"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_logo_pdam"
-                app:layout_constraintTop_toTopOf="parent"
-
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_to_pdam"

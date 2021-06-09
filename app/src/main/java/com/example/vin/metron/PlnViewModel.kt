@@ -25,8 +25,8 @@ class PlnViewModel: ViewModel() {
                             document.get("no_pln").toString(),
                             document.get("time_start") as Timestamp,
                             document.get("time_end") as Timestamp,
-                            document.get("number_read").toString().toFloat(),
-                            document.get("usage").toString().toFloat()
+                            document.get("number_read").toString().toDouble(),
+                            document.get("usage").toString().toDouble()
                         )
                         records.add(record)
                     }
@@ -40,8 +40,8 @@ class PlnViewModel: ViewModel() {
         return recordsResult
     }
 
-    fun getPreviousNumberRead(noPln: String?): LiveData<Float?> {
-        val prevNumberReadResult = MutableLiveData<Float?>()
+    fun getPreviousRecord(noPln: String?): LiveData<PLNRecord?> {
+        val plnResult = MutableLiveData<PLNRecord?>()
         val db = FirebaseFirestore.getInstance()
         db.collection("records_pln")
             .whereEqualTo("no_pln", noPln)
@@ -49,16 +49,21 @@ class PlnViewModel: ViewModel() {
             .get()
             .addOnSuccessListener {
                 if(it.documents.size == 0){
-                    prevNumberReadResult.value = 0.0f
+                    plnResult.value = null
                 } else{
-                    prevNumberReadResult.value = it.documents[0].get("number_read").toString().toFloatOrNull()
-                    Log.d("metron1","success with doc: ${it.documents[0]}")
+                    plnResult.value = PLNRecord(
+                        it.documents[0].get("no_pln").toString(),
+                        it.documents[0].get("time_start") as Timestamp,
+                        it.documents[0].get("time_end") as Timestamp,
+                        it.documents[0].get("number_read") as Double,
+                        it.documents[0].get("usage") as Double
+                    )
                 }
             }
             .addOnFailureListener{
                 Log.d("metron1", "Fail to get previous record from database")
             }
 
-        return prevNumberReadResult
+        return plnResult
     }
 }

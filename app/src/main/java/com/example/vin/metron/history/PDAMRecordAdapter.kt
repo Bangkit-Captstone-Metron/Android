@@ -1,5 +1,9 @@
 package com.example.vin.metron.history
 
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.RelativeSizeSpan
+import android.text.style.SuperscriptSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,10 +29,25 @@ class PDAMRecordAdapter(private val records: ArrayList<PDAMRecord>): RecyclerVie
     class ViewHolder(private val binding: ItemRecordBinding): RecyclerView.ViewHolder(binding.root){
         val formatter = SimpleDateFormat("dd-MM-yyyy")
 
+        val text = "m3"
+        val ssBuilder = SpannableStringBuilder(text)
+        val superscriptSpan = SuperscriptSpan()
         fun bind(record: PDAMRecord){
+            ssBuilder.setSpan(
+                superscriptSpan,
+                text.indexOf("3"),
+                text.indexOf("3") + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ssBuilder.setSpan(
+                RelativeSizeSpan(.5f),
+                text.indexOf("3"),
+                text.indexOf("3") + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
             binding.apply {
                 noPlnTV.text = "No.${record.no_pdam}"
-                usageTV.text = "${record.usage}"
+                usageTV.text = "${record.usage} $ssBuilder"
                 timeStartTV.text =
                     "Awal pengunaan: ${formatter.format(record.time_start?.toDate())}"
                 timeEndTV.text =

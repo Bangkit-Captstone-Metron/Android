@@ -134,7 +134,7 @@ class PlnMainFragment : Fragment(), View.OnClickListener {
         }
         Log.d("ocr size", outputString.trim().length.toString())
         when (outputString.trim().length) {
-            5 -> outputString += "5"
+            5 -> outputString += ".5"
             6 -> outputString =
                 outputString.substring(0, 5) + "." + outputString.substring(5, outputString.length)
             else -> throw Error("Data digit tidak terbaca lengkap")
@@ -164,11 +164,11 @@ class PlnMainFragment : Fragment(), View.OnClickListener {
         homeViewModel.checkIsFakeFromURI(body, requireContext()).observe(viewLifecycleOwner) {
             Log.d("metron1", "${it.isFake} and ${it.confidence}")
             if (it.isFake != null && it.confidence > 75.00) {
-                val usage = (usage + "f").toFloat()
+                val usage = usage
                 val bundle = Bundle()
                 bundle.putString(SERVICE_TYPE, PLN)
                 bundle.putBoolean(IS_FAKE, it.isFake)
-                bundle.putFloat(OCR_READING, usage)
+                bundle.putDouble(OCR_READING, usage.toDouble())
 
                 findNavController().navigate(R.id.action_plnMainFragment_to_resultFragment, bundle)
             }
