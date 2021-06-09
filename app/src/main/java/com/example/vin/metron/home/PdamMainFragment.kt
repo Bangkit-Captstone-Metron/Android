@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
@@ -49,6 +50,7 @@ class PdamMainFragment : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPdamMainBinding.inflate(layoutInflater,container,false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         return binding?.root
     }
 

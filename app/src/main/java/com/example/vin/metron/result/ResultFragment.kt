@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -31,6 +32,7 @@ class ResultFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentResultBinding.inflate(layoutInflater)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         return binding.root
     }
 
@@ -87,13 +89,18 @@ class ResultFragment : Fragment() {
                     btnBack.visibility = View.VISIBLE
                     tvDesc.text = "Data penggunaan $type berhasil tersimpan"
                     tvUsage.text = "$numberRead $unit"
+                    btnBack.text = getString(R.string.kembali)
                 }
-            } else throw Exception("Gagal, Gunakan foto yang asli meteran anda yang jelas")
+            } else{
+                binding.btnBack.text = getString(R.string.coba_lagi)
+                throw Exception("Gagal, Gunakan foto yang asli meteran anda yang jelas")
+            }
         } catch (e: Exception) {
             binding.apply {
                 ivResultFail.visibility = View.VISIBLE
-                tvDesc.text = "Penyimpanan gagal"
+                tvDesc.text = getString(R.string.simpan_gagal)
                 btnBack.visibility = View.VISIBLE
+                btnBack.text = getString(R.string.coba_lagi)
             }
             showToast("ERROR: ${e.message}")
         }

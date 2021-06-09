@@ -20,5 +20,8 @@
     <string name="nomor_pdam">Nomor PDAM</string>
     <string name="email">Email</string>
     <string name="registrasi">Registrasi</string>
+    <string name="coba_lagi">Coba lagi</string>
+    <string name="kembali">Kembali</string>
+    <string name="simpan_gagal">Penyimpanan gagal</string>
 
 </resources>
