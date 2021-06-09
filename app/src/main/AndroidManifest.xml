@@ -14,22 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Metron"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity"></activity>
 
         <receiver
             android:name=".profile.AlarmReceiver"
             android:enabled="true"
             android:exported="true"></receiver>
 
-        <activity
-            android:name=".authentication.LoginActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".authentication.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".authentication.RegisterActivity"
             android:screenOrientation="portrait" />

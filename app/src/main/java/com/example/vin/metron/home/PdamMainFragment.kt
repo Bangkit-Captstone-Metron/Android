@@ -65,7 +65,7 @@ class PdamMainFragment : Fragment(),View.OnClickListener {
             if (cropResultUri != null) extractText(imageUri = cropResultUri!!)
             else Toast.makeText(
                 context,
-                "Uri tidak ditemukan, silahkan foto atau upload ulang",
+                "Gambar tidak ditemukan, silahkan foto atau unggah kembali",
                 Toast.LENGTH_SHORT
             ).show()
             binding.progressBar.visibility = View.GONE
@@ -82,7 +82,7 @@ class PdamMainFragment : Fragment(),View.OnClickListener {
                 cropActivityResultLauncher?.launch(null)
             }
             R.id.btn_submit -> {
-                Toast.makeText(context, "start submit", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Mulai lapor", Toast.LENGTH_SHORT).show()
                 try {
                     onSubmit()
                 } catch (e: Error) {
@@ -100,7 +100,7 @@ class PdamMainFragment : Fragment(),View.OnClickListener {
                 try {
                     usage = postProcessingOCR(visionText)
                     binding.apply {
-                        tvOcrResult.text = "$usage Kw/H"
+                        tvOcrResult.text = "$usage meter kubik"
                         btnSubmit.visibility = View.VISIBLE
                     }
                 } catch (e: Error) {

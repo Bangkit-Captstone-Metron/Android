@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Registrasi"
+        android:text="@string/registrasi"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
             android:id="@+id/plnNoET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nomor PLN"
+            android:hint="@string/nomor_pln"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +86,7 @@
             android:id="@+id/pdamNoET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nomor PDAM"
+            android:hint="@string/nomor_pdam"
             android:inputType="number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +130,7 @@
         android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kirim"
+        android:text="@string/kirim"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -34,7 +34,7 @@ class PLNRecordAdapter(private val records: ArrayList<PLNRecord>): RecyclerView.
                 timeEndTV.text =
                     "Akhir pemakaian: ${formatter.format(record.time_end?.toDate())}"
                 Glide.with(root.context)
-                    .load(R.drawable.pln_logo)
+                    .load(R.drawable.logo_pln)
                     .apply(RequestOptions().override(85, 85))
                     .into(logoIV)
             }

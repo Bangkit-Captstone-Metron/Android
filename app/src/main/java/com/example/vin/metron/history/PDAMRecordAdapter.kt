@@ -34,7 +34,7 @@ class PDAMRecordAdapter(private val records: ArrayList<PDAMRecord>): RecyclerVie
                 timeEndTV.text =
                     "Akhir pengunaan: ${formatter.format(record.time_end?.toDate())}"
                 Glide.with(root.context)
-                    .load(R.drawable.pdam_logo)
+                    .load(R.drawable.logo_pdam)
                     .apply(RequestOptions().override(85, 85))
                     .into(logoIV)
             }

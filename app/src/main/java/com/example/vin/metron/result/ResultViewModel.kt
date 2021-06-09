@@ -1,15 +1,10 @@
 package com.example.vin.metron.result
 
 import android.content.Context
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.example.vin.metron.PREF_KEY
 import com.example.vin.metron.PREF_LAST_PDAM_SUBMISSION
 import com.example.vin.metron.PREF_LAST_PLN_SUBMISSION
-import com.example.vin.metron.data.remote.network.ApiConfig
-import com.example.vin.metron.data.remote.network.ApiService
 import java.text.SimpleDateFormat
 import java.util.*
 

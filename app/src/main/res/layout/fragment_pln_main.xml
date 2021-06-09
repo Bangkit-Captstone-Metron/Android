@@ -221,9 +221,7 @@
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:text="@string/lapor"
                 android:visibility="invisible" />
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

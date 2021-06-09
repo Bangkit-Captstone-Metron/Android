@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.NavUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.*
 import com.example.vin.metron.databinding.FragmentResultBinding
 import com.example.vin.metron.entities.PDAMRecord
@@ -20,8 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ResultFragment : Fragment() {
     private lateinit var binding: FragmentResultBinding
-    private val alarmReceiver: AlarmReceiver =
-        AlarmReceiver()
+    private val alarmReceiver: AlarmReceiver = AlarmReceiver()
     private val resultViewModel: ResultViewModel by viewModels()
     private lateinit var userPreferences: UserPreferences
     private lateinit var plnViewModel: PlnViewModel
@@ -50,14 +52,16 @@ class ResultFragment : Fragment() {
         userPreferences = UserPreferences(requireContext())
 
         setUIContent()
-        backToHomeButtonListener()
-    }
+        binding.btnBack.setOnClickListener{
+            when(arguments?.getString(SERVICE_TYPE) == resources.getString(R.string.pln)){
+                true -> {
+                    findNavController().navigate(R.id.action_resultFragment_to_plnMainFragment)
+                }
+                false -> {
+                    findNavController().navigate(R.id.action_resultFragment_to_pdamMainFragment)
+                }
+            }
 
-    private fun backToHomeButtonListener() {
-        binding.btnBack.setOnClickListener {
-            requireActivity().finish()
-//            TOdo: perform back button
-//            findNavController().navigate(R.id.action_resultFragment_to_navigation_home)
         }
     }
 
@@ -77,6 +81,7 @@ class ResultFragment : Fragment() {
         val unit = if (isPLN) "kW/h" else "meter kubik"
         val isFake = arguments?.getBoolean(IS_FAKE, true) ?: false
         val numberRead = arguments?.getFloat(OCR_READING)
+        Log.d("metron1", "$isFake")
         try {
             if (isFake) {
                 saveToDatabase(numberRead, isPLN)

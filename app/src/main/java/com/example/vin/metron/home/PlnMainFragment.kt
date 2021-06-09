@@ -14,9 +14,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.NavAction
 import androidx.navigation.fragment.findNavController
 import com.example.vin.metron.*
 import com.example.vin.metron.databinding.FragmentPlnMainBinding
+import com.example.vin.metron.result.ResultFragment
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -160,13 +162,15 @@ class PlnMainFragment : Fragment(), View.OnClickListener {
             body = requestBody
         )
         homeViewModel.checkIsFakeFromURI(body, requireContext()).observe(viewLifecycleOwner) {
+            Log.d("metron1", "${it.isFake} and ${it.confidence}")
             if (it.isFake != null && it.confidence > 75.00) {
                 val usage = (usage + "f").toFloat()
                 val bundle = Bundle()
                 bundle.putString(SERVICE_TYPE, PLN)
                 bundle.putBoolean(IS_FAKE, it.isFake)
                 bundle.putFloat(OCR_READING, usage)
-                findNavController().navigate(R.id.action_plnMainFragment_to_resultFragment)
+
+                findNavController().navigate(R.id.action_plnMainFragment_to_resultFragment, bundle)
             }
             binding.progressBar.visibility = View.GONE
         }

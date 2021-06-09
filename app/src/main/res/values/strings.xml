@@ -15,5 +15,10 @@
     <string name="pdam">PDAM</string>
     <string name="pln">PLN</string>
     <string name="lapor">Lapor</string>
+    <string name="kirim">Kirim</string>
+    <string name="nomor_pln">Nomor PLN</string>
+    <string name="nomor_pdam">Nomor PDAM</string>
+    <string name="email">Email</string>
+    <string name="registrasi">Registrasi</string>
 
 </resources>

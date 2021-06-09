@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="Langkah-Langkah Pelaporan PLN"
+                android:text="Langkah-Langkah Pelaporan PDAM"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -99,7 +99,7 @@
                     android:id="@+id/tv_desc2"
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"
-                    android:text="Potong foto unggahan Anda sehingga memuat 7 buah digit meteran air."
+                    android:text="Potong foto unggahan Anda sehingga memuat 7 digit meteran air."
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_step_2" />
@@ -121,7 +121,7 @@
                     android:layout_height="50dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/example_pln"
+                    android:src="@drawable/pdam_meteran"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_desc2" />
             </androidx.constraintlayout.widget.ConstraintLayout>

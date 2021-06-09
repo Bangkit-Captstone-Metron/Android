@@ -63,7 +63,6 @@ class HistoryTabFragment : Fragment() {
                 binding.historyRV.layoutManager = LinearLayoutManager(requireContext())
                 pdamViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[PdamViewModel::class.java]
                 pdamViewModel.getPDAMRecords(user?.no_pdam).observe(viewLifecycleOwner,{ records ->
-                    Log.d("metron1", "changed with $records")
                     binding.progressBar.visibility = View.GONE
                     if(records.size == 0){
                         binding.noDataTV.visibility = View.VISIBLE
