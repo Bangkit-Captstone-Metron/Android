@@ -25,7 +25,6 @@ class HomeViewModel : ViewModel() {
                 call: retrofit2.Call<ResponseIsFake>,
                 response: Response<ResponseIsFake>
             ) {
-                Log.d("hv_model",response.body().toString())
                 result.value = response.body()
             }
 

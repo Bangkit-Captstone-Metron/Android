@@ -133,8 +133,8 @@ class PdamMainFragment : Fragment(),View.OnClickListener {
             } else outputString += tempOutput[i]
         }
         when(outputString.trim().length){
-            6 -> outputString += ".5"
-            7 -> outputString = outputString.substring(0,6) + "." + outputString.substring(6,outputString.length)
+            6 -> outputString = outputString.substring(0,4) + "." + outputString.substring(4,outputString.length) + ".5"
+            7 -> outputString = outputString.substring(0,4) + "." + outputString.substring(4,outputString.length)
             else -> throw Error("Data digit tidak terbaca lengkap")
         }
         return outputString

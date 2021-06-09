@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -49,6 +48,19 @@ class AlarmReceiver : BroadcastReceiver() {
                 pendingIntent
             )
         }
+    }
+
+    fun cancelAlarm(context: Context){
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+
+        var pendingIntentPln = PendingIntent.getBroadcast(context, NOTIF_REQ_CODE_PLN, intent, 0)
+        pendingIntentPln.cancel()
+        alarmManager.cancel(pendingIntentPln)
+
+        val pendingIntentPdam = PendingIntent.getBroadcast(context, NOTIF_REQ_CODE_PDAM, intent, 0)
+        pendingIntentPdam.cancel()
+        alarmManager.cancel(pendingIntentPdam)
     }
 
     private fun showReminderNotification(context: Context, notifId: Int, message: String) {

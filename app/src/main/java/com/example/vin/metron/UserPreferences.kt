@@ -2,9 +2,7 @@ package com.example.vin.metron
 
 import android.content.Context
 import com.example.vin.metron.entities.User
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QueryDocumentSnapshot
 
 class UserPreferences(context: Context) {
     companion object {

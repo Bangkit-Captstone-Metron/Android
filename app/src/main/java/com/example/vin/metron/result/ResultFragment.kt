@@ -1,6 +1,7 @@
 package com.example.vin.metron.result
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -81,7 +82,7 @@ class ResultFragment : Fragment() {
         val isFake = arguments?.getBoolean(IS_FAKE, true) ?: false
         val numberRead = arguments?.getDouble(OCR_READING)
         try {
-            if (isFake) {
+            if (!isFake) {
                 saveToDatabase(numberRead, isPLN)
                 scheduleAlarm(isPLN = isPLN)
                 binding.apply {
@@ -104,7 +105,6 @@ class ResultFragment : Fragment() {
             }
             showToast("ERROR: ${e.message}")
         }
-
     }
 
     private fun scheduleAlarm(isPLN: Boolean) {

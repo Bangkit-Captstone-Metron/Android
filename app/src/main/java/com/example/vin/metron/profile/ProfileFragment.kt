@@ -2,7 +2,6 @@ package com.example.vin.metron.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +39,7 @@ class ProfileFragment : Fragment(),View.OnClickListener {
     }
 
     private fun getUserData(){
-        profileViewModel.getUser().observe(viewLifecycleOwner){user ->
-            Log.d("user_data",user.toString())
+        profileViewModel.getUser().observe(viewLifecycleOwner){ user ->
             binding.tvUsername.text = user.name
             binding.tvEmail.text = user.email
             binding.tvPdamId.text = resources.getString(R.string.profile_pdam_id,user.no_pdam)

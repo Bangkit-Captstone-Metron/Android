@@ -1,11 +1,9 @@
 package com.example.vin.metron
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vin.metron.entities.PDAMRecord
-import com.example.vin.metron.entities.PLNRecord
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -34,9 +32,6 @@ class PdamViewModel: ViewModel() {
                 }
                 recordsResult.value = records
             }
-            .addOnFailureListener{
-                Log.d("metron1", "Fail to get PDAM records with exception $it")
-            }
 
         return recordsResult
     }
@@ -60,9 +55,6 @@ class PdamViewModel: ViewModel() {
                         it.documents[0].get("usage") as Double
                     )
                 }
-            }
-            .addOnFailureListener{
-                Log.d("metron1", "Fail to get previous record from database")
             }
 
         return pdamResult

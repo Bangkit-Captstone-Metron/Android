@@ -1,7 +1,6 @@
 package com.example.vin.metron.info
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.example.vin.metron.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment(), AdapterCallback {
     private lateinit var binding: FragmentInfoBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

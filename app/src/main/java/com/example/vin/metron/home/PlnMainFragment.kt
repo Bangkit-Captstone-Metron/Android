@@ -13,12 +13,9 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import androidx.navigation.NavAction
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import com.example.vin.metron.*
 import com.example.vin.metron.databinding.FragmentPlnMainBinding
-import com.example.vin.metron.result.ResultFragment
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
